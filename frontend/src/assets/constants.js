@@ -1,1 +1,1 @@
-export const APP_NAME = "Decentri";
+export const APP_NAME = "Connect";
