@@ -10,7 +10,7 @@ const router = Router();
 
 
 // CREATE POST
-router.post("/create", verifyToken, upload.fields([]), createPost);
+router.post("/create", verifyToken, upload.array("media", 10), createPost);
 
 
 

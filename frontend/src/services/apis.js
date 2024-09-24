@@ -6,3 +6,6 @@ const base_url = `${backend_host}${api_version}`;
 export const signupAPI = `${base_url}/user/signup`;
 export const loginAPI = `${base_url}/user/login`;
 export const logoutAPI = `${base_url}/user/logout`;
+
+
+// POST APIs
