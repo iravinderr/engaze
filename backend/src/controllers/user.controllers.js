@@ -5,7 +5,7 @@ import { ErrorResponse, SuccessResponse } from "../utils/response.utils.js";
 export const signup = asyncHandler(async (req, res) => {
     const { name, username, email, password, DOB } = req.body;
 
-    if (!name || !username || !email || !password || !DOB) return ErrorResponse(res, 400, `Fill all the details`);
+    if (!name || !username || !email || !password) return ErrorResponse(res, 400, `Fill all the details`);
 
     let user = await USER.findOne({ email });
     if (user) return ErrorResponse(res, 400, `Email already exists`);
@@ -13,7 +13,7 @@ export const signup = asyncHandler(async (req, res) => {
     user = await USER.findOne({ username });
     if (user) return ErrorResponse(res, 400, `Username is already taken`);
 
-    await USER.create({ name, username, email, password, verified: true, DOB});
+    await USER.create({ name, username, email, password, verified: true});
 
     return SuccessResponse(res, `Account created`);
 });
