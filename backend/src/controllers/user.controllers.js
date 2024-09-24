@@ -12,6 +12,10 @@ export const signup = asyncHandler(async (req, res) => {
 
     user = await USER.findOne({ username });
     if (user) return ErrorResponse(res, 400, `Username is already taken`);
+
+    await USER.create({ name, username, email, password, verified: true, DOB});
+
+    return SuccessResponse(res, "Signed up successfully");
 });
 
 // export const confirmSignup = asyncHandler(async (req, res) => {
