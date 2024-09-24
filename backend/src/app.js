@@ -25,9 +25,11 @@ app.use(cookieParser());
 
 
 // MOUNTING THE ROUTES
-
 const api_v = `/api/v1`;
-app.use(`${api_v}`, );
+
+// GENERAL USER ROUTES
+import userRoutes from "./routes/user.routes.js";
+app.use(`${api_v}/user`, userRoutes);
 
 
 
