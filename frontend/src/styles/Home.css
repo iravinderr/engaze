@@ -1,0 +1,5 @@
+.grid-container{
+    display: grid;
+    grid-template-columns: 17vw 62vw 21vw;
+}
+

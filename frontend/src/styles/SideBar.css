@@ -1,0 +1,19 @@
+.cover{
+    background-color: #5046e5;
+}
+.Sidebar-input{
+    width: full;
+    height: full;
+    outline:none;
+    background-color: #6366f1;
+    color: #cecdf9;
+    
+}
+.search-icon{
+    width:2rem;
+    color: #cecdf9;
+}
+.search-bar{
+    background-color: #6366f1;
+    
+}
