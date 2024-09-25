@@ -5,8 +5,8 @@ import {
     login,
     logout,
     signup
-} from "../controllers/user.controllers.js";
-import { verifyToken } from "../middlewares/user.middlewares.js";
+} from "../controllers/auth.controllers.js";
+import { verifyToken } from "../middlewares/auth.middlewares.js";
 
 // INITIALISING ROUTER
 const router = Router();
@@ -21,7 +21,7 @@ router.post("/signup", upload.none(), signup);
 router.post("/login", upload.none(), login);
 
 // LOGOUT
-router.post("/logout", verifyToken(), upload.none(), logout);
+router.post("/logout", verifyToken, upload.none(), logout);
 
 
 

@@ -28,8 +28,8 @@ app.use(cookieParser());
 const api_v = `/api/v1`;
 
 // GENERAL USER ROUTES
-import userRoutes from "./routes/user.routes.js";
-app.use(`${api_v}/user`, userRoutes);
+import authRoutes from "./routes/auth.routes.js";
+app.use(`${api_v}/user`, authRoutes);
 
 
 
