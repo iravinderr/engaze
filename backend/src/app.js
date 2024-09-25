@@ -29,7 +29,7 @@ const api_v = `/api/v1`;
 
 // GENERAL USER ROUTES
 import authRoutes from "./routes/auth.routes.js";
-app.use(`${api_v}/user`, authRoutes);
+app.use(`${api_v}/auth`, authRoutes);
 
 
 
