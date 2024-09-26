@@ -8,9 +8,11 @@ import { RecoilRoot } from "recoil"
 function App() {
   return (
     <RecoilRoot>
+  
       <div className="h-screen w-screen">
       <Routes>
         <Route path="/" element={<LoginSignup />}></Route>
+        <Route path="/home" element={<Home />}></Route>
       </Routes>
       
     </div>

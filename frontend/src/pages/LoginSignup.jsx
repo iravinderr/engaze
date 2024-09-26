@@ -23,7 +23,7 @@ const LoginSignup = () => {
       </div>
       <div className='flex flex-col'>
         {
-          isAccountPresent==true ? (<Login />) : (<Signup />)
+          isAccountPresent ? (<Login />) : (<Signup />)
         }
         <div className='border-2 mt-[1rem] h-[5rem] flex justify-center items-center border-gray-300'>
           {isAccountPresent == true ? (
