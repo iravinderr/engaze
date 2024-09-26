@@ -1,8 +1,14 @@
 import React, { useState } from 'react'
 import { APP_NAME } from '../assets/constants'
+import { postRequestAxios } from '../services/requests';
+import { signupAPI } from '../services/apis';
+import { useRecoilState } from 'recoil';
+import { AccountPresentAtom } from '../Store/AccountPresentAtom';
+import toast from "react-hot-toast"
 
 
 const Signup = () => {
+  const [isAccountPresent,SetAccountPresent] = useRecoilState(AccountPresentAtom);
 
   const [inputData, setInputData] = useState({
     name: '',
@@ -27,10 +33,20 @@ const Signup = () => {
     setShowPassword((prevShow) => !prevShow);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Perform form actions like sending to API
-    
+    try {
+      const response = await postRequestAxios(signupAPI, inputData, null, null);
+
+      if (response.data.success) {
+        toast.success(response.data.message);
+        SetAccountPresent(!isAccountPresent);
+      }
+    } catch (error) {
+      toast.error(error.response.data.message);
+
+    }
   };
 
   return (

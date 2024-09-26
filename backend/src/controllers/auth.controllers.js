@@ -3,7 +3,7 @@ import { asyncHandler } from "../utils/handler.utils.js";
 import { ErrorResponse, SuccessResponse } from "../utils/response.utils.js";
 
 export const signup = asyncHandler(async (req, res) => {
-    const { name, username, email, password, DOB } = req.body;
+    const { name, username, email, password } = req.body;
 
     if (!name || !username || !email || !password) return ErrorResponse(res, 400, `Fill all the details`);
 
@@ -51,7 +51,7 @@ export const login = asyncHandler(async (req, res) => {
     }
 
     return res.status(200)
-    .cookies("accessToken", accessToken, options)
+    .cookie("accessToken", accessToken, options)
     .json({
         success: true,
         message: `Logged In`,
