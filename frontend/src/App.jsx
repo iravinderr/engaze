@@ -9,10 +9,12 @@ import { Toaster } from "react-hot-toast";
 function App() {
   return (
     <RecoilRoot>
+  
       <div className="h-screen w-screen">
         <Routes>
           <Route path="/" element={<LoginSignup />}></Route>
-        </Routes>
+          <Route path="/home" element={<Home />}></Route>
+      </Routes>
         <Toaster />
       </div>
     </RecoilRoot>

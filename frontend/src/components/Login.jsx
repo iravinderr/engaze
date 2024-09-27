@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useState } from "react";import Loader from './Loader';
 import { APP_NAME } from "../assets/constants";
-import toast from "react-hot-toast";
 import { postRequestAxios } from "../services/requests";
-import { loginAPI } from "../services/apis";
+import { loginAPI } from '../services/apis';
+import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
+
 
 const Login = () => {
+  const navigate = useNavigate()
   const [inputData, setInputData] = useState({
     identifier: "",
     password: "",
   });
+  const[Loading,setLoading] = useState(null)
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -27,18 +31,29 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true)
     try {
       const response = await postRequestAxios(loginAPI, inputData, null, null);
 
-      if (response.data.success) {
-        toast.success(response.data.message);
-        localStorage.setItem("accessToken", response.data.accessToken);
-      }
+    if(response.data.success){
+      setLoading(false)
+      toast.success(response.data.message);
+      localStorage.setItem('accessToken',response.data.accessToken);
+      navigate("/home")
+
+    }
     } catch (error) {
+      setLoading(false);
       toast.error(error.response.data.message);
     }
+    
   };
 
+  if(Loading){
+    return <Loader />
+  }
+
+ 
   return (
     <div className="h-[46vh] w-[360px] border-2 border-gray-300 flex flex-col items-center mt-[1.2rem]">
       <div className="text-4xl font-semibold italic py-[2.5rem]">
