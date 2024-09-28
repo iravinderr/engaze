@@ -32,3 +32,17 @@ export const deletePost = asyncHandler(async (req, res) => {
 
     
 });
+
+
+export const getPostForFeed = asyncHandler(async (req, res) => {
+    const userId = req.user?._id;
+
+    const likedPosts = await POST.find({ userId });
+    if (!likedPosts) {
+        // recommend random posts based on the location, language, interests
+    }
+
+    else {
+        // use the tags of these posts to recommend posts
+    }
+});
