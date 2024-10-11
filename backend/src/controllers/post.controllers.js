@@ -33,6 +33,11 @@ export const deletePost = asyncHandler(async (req, res) => {
     
 });
 
+export const getPostForHome = asyncHandler(async (req, res) => {
+    const userId = req.user?._id;
+
+    
+});
 
 export const getPostForFeed = asyncHandler(async (req, res) => {
     const userId = req.user?._id;
