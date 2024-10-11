@@ -1,0 +1,26 @@
+.profile-image-container {
+    width: 50px; /* Adjust size as needed */
+    height: 50px; /* Adjust size as needed */
+    overflow: hidden; /* Ensures the image doesn't spill outside the container */
+    border-radius: 50%; /* Makes the container circular */
+  }
+  
+  .profile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    border-radius: 50%;
+}
+  
+.post-container{
+    width: 50.8rem; 
+    height: 18rem;
+    overflow: hidden; 
+    
+}
+.post-image{
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+  
+}
