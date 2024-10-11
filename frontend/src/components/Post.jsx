@@ -7,9 +7,11 @@ import kitty from "../../public/kitty.jpg"
 const Post = () => {
 
     const [postLike,setPostLike] = useState(false)
-
+    function likeHandler() {
+        setPostLike(!postLike)
+    }
   return (
-    <div className=''>
+    <div className=' rounded-2xl shadow-lg border-2 border-gray-200 mb-[1rem]'>
         <div className='User-Detail flex py-[0.8rem] pl-[1.5rem]'>
             <div  className='profile-image-container'>
             <img src={kitty} alt='User-image' className='profile-image' />
@@ -27,18 +29,23 @@ const Post = () => {
                 <img src="../../public/kitty.jpg" className=' post-image' alt='These are all the posts User has sent' />
 
             </div>
-            
-            <button> 
-
-                <span>
+            <div className='flex justify-start'>
+            <button onClick={likeHandler}>
                 {
-                postLike ? (<BiSolidLike />) : (<BiLike />)
+                postLike ? (<BiSolidLike className='text-xl hover:text-black'/>) : (<BiLike className='text-xl hover:text-black'/>)
                 }
-                    Like
-                </span>
-
                 </button>
+                <p className='ml-[1rem] text-lg font-semibold'>
+                    {
+                        postLike ? ("Liked") : ("Like")
+                    }
+                    </p>
+
+            </div>
+            
+            
         </div>
+
     </div>
   )
 }

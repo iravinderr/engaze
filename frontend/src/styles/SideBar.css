@@ -2,18 +2,29 @@
     background-color: #5046e5;
 }
 .Sidebar-input{
-    width: full;
+    width: 12.1vw;
     height: full;
     outline:none;
     background-color: #6366f1;
-    color: #cecdf9;
+    color: #e2e2f6;
     
 }
 .search-icon{
-    width:2rem;
-    color: #cecdf9;
+    width:2vw;
+    font-size: 1.2rem;
+    color: #e2e2f6;
 }
 .search-bar{
     background-color: #6366f1;
     
 }
+
+.sidebar-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 17vw; /* Same as the grid column width */
+    height: 100vh; /* Full viewport height */
+    z-index: 1000; /* Ensure it stays above the content */
+
+  }

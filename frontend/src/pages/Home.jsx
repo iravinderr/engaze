@@ -7,7 +7,7 @@ import { Route, Routes } from "react-router-dom";
 const Home = () => {
   return (
     <div className="grid-container h-full w-full">
-      <SideBar className="grid-item" /> 
+      <SideBar className="grid-item sidebar-fixed" /> 
       <div className="grid-item grid-content">
         <Routes>
          
