@@ -4,6 +4,7 @@ import { postRequestAxios } from "../services/requests";
 import { signupAPI } from "../services/apis";
 import toast from "react-hot-toast";
 import Loader from "./Loader";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const [inputData, setInputData] = useState({
@@ -12,6 +13,9 @@ const Signup = () => {
     email: "",
     password: "",
   });
+
+  const navigate = useNavigate();
+
   const [Loading,setLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false);
 
@@ -36,12 +40,12 @@ const Signup = () => {
 
       if (response.data.success) {
         setLoading(false);
-        SetAccountPresent(true);
+        navigate("/")
         toast.success(response.data.message);
       }
     } catch (error) {
       setLoading(false);
-      toast.error("error.response.data.message");
+      toast.error(error.response.data.message);
     }
   };
 

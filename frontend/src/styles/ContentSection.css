@@ -1,0 +1,18 @@
+.content-section {
+    display: grid;
+    grid-template-columns: 2.15fr 0.85fr; 
+    height: 100%;
+    width: 100%;
+    gap: 10px; 
+  }
+  
+  .middle-section {
+    padding: 20px;
+    background-color: #f9f9f9; 
+  }
+  
+  .activity-section {
+    padding:20px;
+    background-color: #f9f9f9; 
+  }
+  

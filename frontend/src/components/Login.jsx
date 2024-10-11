@@ -39,7 +39,7 @@ const Login = () => {
       setLoading(false)
       toast.success(response.data.message);
       localStorage.setItem('accessToken',response.data.accessToken);
-      navigate("/home")
+      navigate("/home/main")
 
     }
     } catch (error) {
