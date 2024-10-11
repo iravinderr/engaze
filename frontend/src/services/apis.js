@@ -9,7 +9,11 @@ export const logoutAPI = `${base_url}/auth/logout`;
 
 
 // USER APIs
-
+export const searchUserAPI = `${base_url}/user/search`;
 
 
 // POST APIs
+export const createPostAPI = `${base_url}/post/create`;
+export const deletePostAPI = `${base_url}/post/delete`;
+export const getOwnPostsAPI = `${base_url}/post/get-own-posts`;
+export const getPostsForHome = `${base_url}/post/get-posts-for-home`;

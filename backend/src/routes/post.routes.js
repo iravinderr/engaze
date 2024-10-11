@@ -22,7 +22,7 @@ router.delete("/delete", verifyToken, deletePost);
 router.get("/get-own-posts", verifyToken, getOwnPosts);
 
 // GET POSTS FOR HOME PAGE
-router.get("/get-posts-for-homepage", verifyToken, getPostsForHome);
+router.get("/get-posts-for-home", verifyToken, getPostsForHome);
 
 
 

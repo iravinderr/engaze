@@ -30,9 +30,13 @@ app.use(cookieParser());
 const api_version = `/api/v1`;
 
 
-// GENERAL USER ROUTES
+// AUTH ROUTES
 import authRoutes from "./routes/auth.routes.js";
 app.use(`${api_version}/auth`, authRoutes);
+
+// USER ROUTES
+import userRoutes from "./routes/user.routes.js";
+app.use(`${api_version}/user`, userRoutes);
 
 // POST ROUTES
 import postRoutes from "./routes/post.routes.js";
