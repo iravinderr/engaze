@@ -4,6 +4,9 @@ import jwt from "jsonwebtoken";
 
 const userSchema = new Schema(
     {
+        profileImage: {
+            type: String,
+        },
         name: {
             type: String,
             required: true,
