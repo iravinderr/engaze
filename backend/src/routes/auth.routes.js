@@ -1,7 +1,6 @@
 import { Router } from "express";
 import { upload } from "../middlewares/multer.middlewares.js";
 import {
-    confirmSignup,
     login,
     logout,
     signup
