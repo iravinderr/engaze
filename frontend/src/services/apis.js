@@ -10,6 +10,9 @@ export const logoutAPI = `${base_url}/auth/logout`;
 
 // USER APIs
 export const searchUserAPI = `${base_url}/user/search`;
+export const getProfileDetailsAPI = `${base_url}/user/get-profile-details`;
+export const updateProfileDetailsAPI = `${base_url}/user/update-profile-details`;
+export const changeUsernameAPI = `${base_url}/user/change-username`;
 
 
 // POST APIs
