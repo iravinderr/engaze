@@ -1,3 +1,4 @@
+import { FOLLOW } from "../models/follow.models.js";
 import { USER } from "../models/user.models.js";
 import { asyncHandler } from "../utils/handler.utils.js";
 import { ErrorResponse, SuccessResponse } from "../utils/response.utils.js";
@@ -36,4 +37,32 @@ export const searchUser = asyncHandler(async (req, res) => {
     if (!users.length) return ErrorResponse(res, 404, `No user exists`);
 
     return SuccessResponse(res, ``, users);
+});
+
+export const followUser = asyncHandler(async (req, res) => {
+    const userId = req.user?._id;
+
+    const { followeeId } = req.body;
+    if (!followeeId) return ErrorResponse(res, 400, `Followee id is missing`);
+    
+    const follow = await FOLLOW.findOne({ followee: followeeId, follower: userId});
+    if (follow) return SuccessResponse(res, 400, `You already follow this account`);
+    
+    await FOLLOW.create({ followee: followeeId, follower: userId });
+    
+    return SuccessResponse(res, `Followed`);
+});
+
+export const unfollowUser = asyncHandler(async (req, res) => {
+    const userId = req.user?._id;
+    
+    const { followeeId } = req.body;
+    if (!followeeId) return ErrorResponse(res, 400, `Followee id is missing`);
+
+    const follow = await FOLLOW.findOne({ followee: followeeId, follower: userId });
+    if (!follow) return SuccessResponse(res, 400, `You do not follow this account`);
+
+    await FOLLOW.deleteOne({ followee: followeeId, follower: userId });
+
+    return SuccessResponse(res, `Unfollowed`);
 });

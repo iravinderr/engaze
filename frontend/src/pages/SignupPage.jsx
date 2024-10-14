@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Signup from '../components/Signup';
+import { Signup } from '../components';
 
 import insta from "/insta.png"
 import { Link } from 'react-router-dom';

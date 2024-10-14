@@ -4,10 +4,12 @@ import { postRequestAxios } from "../services/requests";
 import { loginAPI } from '../services/apis';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import useAuthNavigation from "../hooks/AuthNavigation";
 
 
 const Login = () => {
-  const navigate = useNavigate()
+  const { setAuthenticated } = useAuthNavigation();
+  const navigate = useNavigate();
   const [inputData, setInputData] = useState({
     identifier: "",
     password: "",
@@ -36,11 +38,11 @@ const Login = () => {
       const response = await postRequestAxios(loginAPI, inputData, null, null);
 
     if(response.data.success){
-      setLoading(false)
+      setLoading(false);
+      setAuthenticated(true);
       toast.success(response.data.message);
       localStorage.setItem('accessToken',response.data.accessToken);
-      navigate("/home/main")
-
+      navigate("/home")
     }
     } catch (error) {
       setLoading(false);

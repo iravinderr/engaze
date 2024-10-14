@@ -1,24 +1,18 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
-import { RecoilRoot } from "recoil";
+import { SideBar } from "./components";
+import { Outlet } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
-import LoginPage from "./pages/LoginPage";
-import SignupPage from "./pages/SignupPage";
-import Home from "./pages/Home"; // Your main Home page with all three sections
+import useAuthNavigation from "./hooks/AuthNavigation";
 
 function App() {
+  const { authenticated } = useAuthNavigation();
+
   return (
-    <RecoilRoot>
       <div className="h-screen w-screen">
-        <Routes>
-          <Route path="/" element={<LoginPage />} />
-          <Route path="/signup" element={<SignupPage />} />
-          
-          <Route path="/home/*" element={<Home />} />
-        </Routes>
+        {!authenticated ? null : <SideBar />}
+        <Outlet />
         <Toaster />
       </div>
-    </RecoilRoot>
   );
 }
 

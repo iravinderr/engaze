@@ -1,3 +1,4 @@
+import { MAIL_DOMAIN_LIST } from "../constants.js";
 import { USER } from "../models/user.models.js";
 import { asyncHandler } from "../utils/handler.utils.js";
 import { ErrorResponse, SuccessResponse } from "../utils/response.utils.js";
@@ -7,8 +8,14 @@ export const signup = asyncHandler(async (req, res) => {
 
     if (!name || !username || !email || !password) return ErrorResponse(res, 400, `Fill all the details`);
 
+    if (!email.includes("@")) return ErrorResponse(res, 400, `Invalid email address`);
+    
+    const domain = email.split("@")[1];
+    if (!MAIL_DOMAIN_LIST.includes(domain)) return ErrorResponse(res, 400, `Invalid mail domain`);
+
     let user = await USER.findOne({ email });
     if (user) return ErrorResponse(res, 400, `Email already exists`);
+
 
     user = await USER.findOne({ username });
     if (user) return ErrorResponse(res, 400, `Username is already taken`);

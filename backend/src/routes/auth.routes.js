@@ -22,7 +22,8 @@ router.post("/login", upload.none(), login);
 // LOGOUT
 router.post("/logout", verifyToken, upload.none(), logout);
 
-
+// VERIFY TOKEN
+router.post("/verify-token", verifyToken, upload.none(), (req, res) => res.status(200).json({success: true}));
 
 
 
