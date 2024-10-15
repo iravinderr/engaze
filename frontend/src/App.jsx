@@ -9,8 +9,8 @@ function App() {
 
   return (
       <div className="h-screen w-screen flex">
-        {!authenticated ? null : <SideBar />}
-        <Outlet />
+        <div className="w-[17vw]">{!authenticated ? null : <SideBar />}</div>
+        <div><Outlet /></div>
         <Toaster />
       </div>
   );
