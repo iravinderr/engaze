@@ -55,7 +55,7 @@ const SideBar = () => {
     {
       name: "Settings",
       icon: <IoSettingsOutline className="text-gray-300 cursor-pointer" />,
-      path: "/Settings",
+      path: "/settings",
     },
   ];
 

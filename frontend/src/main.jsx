@@ -13,10 +13,10 @@ const router = createBrowserRouter(
     <Route path="/" element={<App />}>
       <Route path="" element={<Login />} />
       <Route path="signup" element={<Signup />} />
-      <Route path="home/*" element={<PrivateRoute><Home /></PrivateRoute>} />
-      <Route path="feed/*" element={<PrivateRoute><Feed /></PrivateRoute>} />
-      <Route path="friends/*" element={<PrivateRoute><Friends /></PrivateRoute>} />
-      <Route path="settings/*" element={<PrivateRoute><Settings /></PrivateRoute>} />
+      <Route path="home" element={<PrivateRoute><Home /></PrivateRoute>} />
+      <Route path="feed" element={<PrivateRoute><Feed /></PrivateRoute>} />
+      <Route path="friends" element={<PrivateRoute><Friends /></PrivateRoute>} />
+      <Route path="settings" element={<PrivateRoute><Settings /></PrivateRoute>} />
     </Route>
   )
 );

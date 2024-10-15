@@ -7,8 +7,8 @@ const useAuthNavigation = () => {
   const { loading, setLoading, authenticated, setAuthenticated } = useAuth();
 
   useEffect(() => {
-    if (authenticated) {
-      navigate("/home");
+    if (!authenticated) {
+      navigate("/");
     }
   }, [authenticated, navigate]);
 

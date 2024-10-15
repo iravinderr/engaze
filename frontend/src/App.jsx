@@ -8,7 +8,7 @@ function App() {
   const { authenticated } = useAuthNavigation();
 
   return (
-      <div className="h-screen w-screen">
+      <div className="h-screen w-screen flex">
         {!authenticated ? null : <SideBar />}
         <Outlet />
         <Toaster />
