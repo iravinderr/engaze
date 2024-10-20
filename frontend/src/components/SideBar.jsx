@@ -30,7 +30,7 @@ const SideBar = () => {
         </div>
         <div className='flex flex-col mt-[3rem]'>
             <div className='flex text-white items-center text-xl pl-[0.7rem] pb-[1.4rem] '>
-                <RiHomeLine className='text-gray-300 cursor-pointer'/>
+                <RiHomeLine className='text-gray-300 cursor-pointer '/>
                 <p className='pl-[0.5rem] cursor-pointer'>Home</p>
             </div>
             <div className='flex text-white items-center text-xl pl-[0.7rem] pb-[1.4rem] '>

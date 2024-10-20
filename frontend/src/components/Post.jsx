@@ -6,6 +6,7 @@ import kitty from "../../public/kitty.jpg";
 
 const Post = () => {
   const [postLike, setPostLike] = useState(false);
+  
 
   function likeHandler() {
     setPostLike(!postLike);
@@ -19,8 +20,8 @@ const Post = () => {
         </div>
 
         <div className="flex flex-col ml-[1rem]">
-          <p className="font-semibold">User.name</p>
-          <p className="text-gray-500">User.info</p>
+          <p className="font-semibold">Ayush Pratap Toshkhani</p>
+          <p className="text-gray-500">Talab Tillo</p>
         </div>
       </div>
       <hr></hr>
