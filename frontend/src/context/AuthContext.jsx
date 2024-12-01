@@ -13,8 +13,6 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await postRequestAxios(verifyTokenAPI);
       return response.data.success;
-      console.log("verify token called");
-      
     } catch (error) {
       return false;
     }

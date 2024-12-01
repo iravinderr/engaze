@@ -1,1 +1,1 @@
-export const APP_NAME = "Connect";
+export const APP_NAME = "BeingSocial";
