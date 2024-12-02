@@ -11,6 +11,7 @@ export const AuthProvider = ({ children }) => {
 
   const verifyToken = async () => {
     try {
+      console.log("verifyTokenAPI -> ", verifyTokenAPI);
       const response = await postRequestAxios(verifyTokenAPI);
       return response.data.success;
     } catch (error) {
