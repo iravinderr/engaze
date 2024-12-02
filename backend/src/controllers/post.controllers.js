@@ -1,3 +1,4 @@
+import { recommendPosts } from "../ai/recommendation.ai.js";
 import { FOLLOW } from "../models/follow.models.js";
 import { POST } from "../models/post.models.js";
 import { uploadToCloudinary } from "../utils/cloudinary.utils.js";
@@ -68,15 +69,15 @@ export const getPostsForHome = asyncHandler(async (req, res) => {
     return SuccessResponse(res, `Posts fetched`, posts);
 });
 
-export const getPostForFeed = asyncHandler(async (req, res) => {
+// Function to get recommended posts for the feed
+export const getPostsForFeed = asyncHandler(async (req, res) => {
     const userId = req.user?._id;
 
-    const likedPosts = await POST.find({ userId });
-    if (!likedPosts) {
-        // recommend random posts based on the location, language, interests
-    }
+    // Fetch recommended posts based on user interactions (likes, follows, etc.)
+    const recommendedPostIds = await recommendPosts(userId);
 
-    else {
-        // use the tags of these posts to recommend posts
-    }
+    // Fetch the posts the user is recommended to see
+    const posts = await POST.find({ _id: { $in: recommendedPostIds } }).populate('author');
+
+    return SuccessResponse(res, `Recommended posts for the user`, posts);
 });

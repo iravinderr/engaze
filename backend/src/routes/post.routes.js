@@ -5,6 +5,7 @@ import {
     createPost,
     deletePost,
     getOwnPosts,
+    getPostsForFeed,
     getPostsForHome, 
 } from "../controllers/post.controllers.js";
 
@@ -23,6 +24,9 @@ router.get("/get-own-posts", verifyToken, getOwnPosts);
 
 // GET POSTS FOR HOME PAGE
 router.get("/get-posts-for-home", verifyToken, getPostsForHome);
+
+// GET POSTS FOR FEED
+router.get("/get-posts-for-feed", verifyToken, getPostsForFeed);
 
 
 
