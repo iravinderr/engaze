@@ -53,10 +53,17 @@ const SideBar = () => {
       path: "/friends",
     },
     {
+      name: "My Profile",
+      icon: <IoSettingsOutline className="text-gray-300 cursor-pointer" />,
+      path: "/profile",
+    }
+    ,
+    {
       name: "Settings",
       icon: <IoSettingsOutline className="text-gray-300 cursor-pointer" />,
       path: "/settings",
     },
+    
   ];
 
   if (loading) {
@@ -87,8 +94,8 @@ const SideBar = () => {
             <NavLink
               className={({ isActive }) =>
                 `flex text-white items-center text-xl pl-[0.7rem] pb-[1.4rem] ${
-                  isActive ? `` : ``
-                } hover:bg-black rounded-md`
+                  isActive ? `bg-[#6366f1]` : ``
+                } hover:bg-[#6366f1] rounded-md`
               }
               to={item.path}
             >
@@ -99,7 +106,7 @@ const SideBar = () => {
 
         <li
           onClick={handleLogout}
-          className="flex text-white items-center text-xl pl-[0.7rem] pb-[1.4rem]"
+          className="flex rounded-lg hover:bg-[#6366f1] text-white items-center text-xl pl-[0.7rem] pb-[1.4rem]"
         >
           <IoSettingsOutline className="text-gray-300 cursor-pointer" />
           <p className="pl-[0.5rem] cursor-pointer">Logout</p>
