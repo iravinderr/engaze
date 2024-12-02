@@ -65,8 +65,8 @@ const SideBar = () => {
 
   return (
     <div className="cover flex flex-col pl-[1rem] sidebar-fixed">
-      <div className="py-[2vw] flex items-center">
-        <img src="../../public/App_Logo.png" className="w-[3vw] " />
+      <div className="py-[2vw] flex items-center gap-4">
+        <img src="../../public/being_social.png" className="w-[3vw] " />
         <div className="text-2xl text-white  font-medium">{APP_NAME}</div>
       </div>
 
