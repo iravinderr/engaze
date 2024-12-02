@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { APP_NAME } from "../assets/constants";
+import { APP_NAME } from "../services/constants";
 import { postRequestAxios } from "../services/requests";
 import { signupAPI } from "../services/apis";
 import toast from "react-hot-toast";
