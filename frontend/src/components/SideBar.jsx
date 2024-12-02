@@ -53,10 +53,17 @@ const SideBar = () => {
       path: "/friends",
     },
     {
+      name: "My Profile",
+      icon: <IoSettingsOutline className="text-gray-300 cursor-pointer" />,
+      path: "/profile",
+    }
+    ,
+    {
       name: "Settings",
       icon: <IoSettingsOutline className="text-gray-300 cursor-pointer" />,
       path: "/settings",
     },
+    
   ];
 
   if (loading) {
@@ -65,8 +72,8 @@ const SideBar = () => {
 
   return (
     <div className="cover flex flex-col pl-[1rem] sidebar-fixed">
-      <div className="py-[2vw] flex items-center gap-4">
-        <img src="../../public/being_social.png" className="w-[3vw] " />
+      <div className="py-[2vw] flex items-center">
+        <img src="../../public/App_Logo.png" className="w-[3vw] " />
         <div className="text-2xl text-white  font-medium">{APP_NAME}</div>
       </div>
 
@@ -86,9 +93,9 @@ const SideBar = () => {
           <li key={item.name}>
             <NavLink
               className={({ isActive }) =>
-                `flex gap-2 text-white items-center text-xl pl-[0.7rem] pb-[1.4rem] ${
-                  isActive ? `` : ``
-                } hover:bg-black rounded-md`
+                `flex text-white items-center text-xl pl-[0.7rem] pb-[1.4rem] ${
+                  isActive ? `bg-[#6366f1]` : ``
+                } hover:bg-[#6366f1] rounded-md`
               }
               to={item.path}
             >
@@ -99,7 +106,7 @@ const SideBar = () => {
 
         <li
           onClick={handleLogout}
-          className="flex text-white items-center text-xl pl-[0.7rem] pb-[1.4rem]"
+          className="flex rounded-lg hover:bg-[#6366f1] text-white items-center text-xl pl-[0.7rem] pb-[1.4rem]"
         >
           <IoSettingsOutline className="text-gray-300 cursor-pointer" />
           <p className="pl-[0.5rem] cursor-pointer">Logout</p>
