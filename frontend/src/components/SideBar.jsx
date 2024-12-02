@@ -86,7 +86,7 @@ const SideBar = () => {
           <li key={item.name}>
             <NavLink
               className={({ isActive }) =>
-                `flex text-white items-center text-xl pl-[0.7rem] pb-[1.4rem] ${
+                `flex gap-2 text-white items-center text-xl pl-[0.7rem] pb-[1.4rem] ${
                   isActive ? `` : ``
                 } hover:bg-black rounded-md`
               }
