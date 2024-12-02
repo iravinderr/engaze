@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { APP_NAME } from "../assets/constants";
+import { APP_NAME } from "../services/constants";
 import { Link, useNavigate } from "react-router-dom";
 import insta from "/insta.png";
 import useAuthNavigation from "../hooks/AuthNavigation";

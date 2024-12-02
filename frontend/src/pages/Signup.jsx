@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { postRequestAxios } from "../services/requests";
-import { APP_NAME } from "../assets/constants";
+import { APP_NAME } from "../services/constants";
 import { useNavigate } from "react-router-dom";
 import { signupAPI } from "../services/apis";
 import { Link } from "react-router-dom";

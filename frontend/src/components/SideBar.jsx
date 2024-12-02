@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { APP_NAME } from "../assets/constants";
+import { APP_NAME } from "../services/constants";
 import { RiHomeLine } from "react-icons/ri";
 import { IoPeopleSharp, IoSettingsOutline } from "react-icons/io5";
 import { IoIosSearch } from "react-icons/io";
