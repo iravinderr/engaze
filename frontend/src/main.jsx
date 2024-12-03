@@ -1,6 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { Feed, Friends, Home, Login, Profile, Settings, Signup } from "./pages";
+import { Feed, Friends, Home, Login, Profile, Settings, Signup, UserProfile } from "./pages";
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 import App from './App.jsx'
 import './index.css'
@@ -18,6 +18,7 @@ const router = createBrowserRouter(
       <Route path="friends" element={<PrivateRoute><Friends /></PrivateRoute>} />
       <Route path="profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
       <Route path="settings" element={<PrivateRoute><Settings /></PrivateRoute>} />
+      <Route path="user/:username" element={<PrivateRoute><UserProfile/></PrivateRoute>} />
     </Route>
   )
 );

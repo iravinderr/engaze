@@ -4,7 +4,7 @@ import { RiHomeLine } from "react-icons/ri";
 import { IoPeopleSharp, IoSettingsOutline } from "react-icons/io5";
 import { IoIosSearch } from "react-icons/io";
 import useAuthNavigation from "../hooks/AuthNavigation";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { getRequestAxios, postRequestAxios } from "../services/requests";
 import { logoutAPI, searchUserAPI } from "../services/apis";
 import toast from "react-hot-toast";
@@ -17,6 +17,7 @@ const SideBar = () => {
   const [Search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
+  const navigate = useNavigate()
 
   const handleSearch = async (query) => {
     if (!query) {
@@ -32,12 +33,15 @@ const SideBar = () => {
       );
       if (response.data.success) {
         setSearchResults(response.data.data);
-        toast.success(response.data.message);
       }
     } catch (error) {
       console.error("Search failed:", error);
-      toast.error("Failed to fetch search results.");
     }
+  };
+
+  const handleUserClick = (username) => {
+    
+    navigate(`user/${username}`);
   };
 
   const handleLogout = async () => {
@@ -117,11 +121,13 @@ const SideBar = () => {
           <div
             className="absolute top-[10rem] left-[1.6rem] bg-white w-[80%] max-h-[180px] overflow-y-auto rounded-md shadow-lg z-100000"
             style={{ padding: "10px" }}
+            
           >
             {searchResults.map((user) => (
               <div
                 key={user._id}
                 className="flex items-center gap-2 py-2 px-4 hover:bg-gray-100 rounded-md cursor-pointer"
+                onClick={() => handleUserClick(user.username)}
               >
                 <img
                   src={user.profileImage ?? "/default-avatar.png"}
