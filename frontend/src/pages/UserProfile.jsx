@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import "../styles/userProfile.css";
 import { Post } from "../components";
 import { getRequestAxios, postRequestAxios } from "../services/requests";
-import { checkIfFollowedAPI, fetchUserDetailsAPI, fetchUserPostsAPI, followUserAPI } from "../services/apis";
+import { checkIfFollowedAPI, fetchUserDetailsAPI, fetchUserPostsAPI, followUserAPI, unfollowUserAPI } from "../services/apis";
 import { useParams } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const UserProfile = () => {
     const { username } = useParams(); // Fetch username from URL
@@ -32,7 +33,7 @@ const UserProfile = () => {
                 }
             } catch (error) {
                 setIfFollowed(false)
-                console.error("Error fetching user data:", error);
+                console.error("User Might not be following", error);
 
             }
         })();
@@ -41,20 +42,32 @@ const UserProfile = () => {
       }, [username]);
 
       const followHandler = async () => {
-        try {
-            const followResponse = await postRequestAxios(followUserAPI,{followeeId:userData._id})
-            if(followResponse.data.success){
-                setIfFollowed(true)
+        if(ifFollowed){
+            try {
+                const followResponse = await postRequestAxios(unfollowUserAPI,{followeeId:userData._id})
+                console.log(followResponse.data)
+                if(followResponse.data.success){
+                    toast.success("Account Unfollowed Successfully")
+                    setIfFollowed(false)
+                }
+            } catch (error) {
+                toast.error(error.response.data.message)
             }
-        } catch (error) {
-            if(error.response.data.message === (`You already follow this account` || `Followed`) ){
-                
-            }else{
-
-                setIfFollowed(false);
-                console.log(error)
+               
+        }else{
+            try {
+                const followResponse = await postRequestAxios(followUserAPI,{followeeId:userData._id})
+                console.log(followResponse.data)
+                if(followResponse.data.success){
+                    toast.success(followResponse.data.data)
+                    setIfFollowed(true)
+                    
+                }
+            } catch (error) {
+                toast.error(error.response.data.message)
             }
         }
+        
       }
 
   return (
@@ -65,7 +78,7 @@ const UserProfile = () => {
         <div className="user-info flex flex-col gap-2">
           <h1 className="text-2xl font-bold">{userData?.name}</h1>
           <p className="text-gray-500">@{userData?.username}</p>
-          <button className="w-[6rem] h-[2.5rem] border-2 hover:bg-gray-200" >
+          <button onClick={followHandler} className="w-[6rem] h-[2.5rem] border-2 hover:bg-gray-200" >
             {ifFollowed ? 'Followed' : 'Follow'}
           </button>
         </div>
