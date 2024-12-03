@@ -19,6 +19,7 @@ const UserProfile = () => {
             setUserData(userResponse.data.data);
 
             const postsResponse = await getRequestAxios(fetchUserPostsAPI,{username});
+            console.log(postsResponse.data.data)
             setUserPosts(postsResponse.data.data);
           } catch (error) {
             console.error("Error fetching user data:", error);
@@ -97,10 +98,10 @@ const UserProfile = () => {
 
     
       <div className="user-posts-container w-[80vw]">
-        <h2 className="text-xl font-semibold mb-[1.5rem]">User's Posts</h2>
+        <h2 className="text-xl font-semibold mb-[1.5rem]">{userData?.name}'s Posts</h2>
         <div className="posts-grid grid grid-cols-2 gap-4">
-          {userPosts?.map((post, index) => (
-            <Post key={post._id} postData={post} />
+          {userPosts?.map((post) => (
+            <Post  postData={post} />
           ))}
         </div>
       </div>

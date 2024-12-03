@@ -15,15 +15,15 @@ const Post = ({ postData }) => {
       <div className="User-Detail flex py-[0.8rem] pl-[1.5rem]">
         <div className="profile-image-contain">
           <img
-            src={postData.profileImage}
+            src={postData.author.profileImage}
             alt="User-image"
             className="profile-image"
           />
         </div>
 
         <div className="flex flex-col ml-[1rem]">
-          <p className="font-semibold">{postData.name}</p>
-          <p className="text-gray-500">{postData.username}</p>
+          <p className="font-semibold">{postData.author.name}</p>
+          <p className="text-gray-500">{postData.author.username}</p>
         </div>
       </div>
       

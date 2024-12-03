@@ -11,7 +11,7 @@ const Middle = () => {
   const navigate = useNavigate();
   const [showForm, setShowForm] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [posts, setPosts] = useState(rawPostData);
+  const [posts, setPosts] = useState([]);
   const [formData, setFormData] = useState({
     tags: "",
     captions: "",
@@ -62,7 +62,7 @@ const Middle = () => {
     (async () => {
       try {
         const response = await getRequestAxios(
-          `${getPostsForHomeAPI}?scrollCount=1&postLimit=10`,
+          `${getPostsForHomeAPI}`,
           null
         );
         console.log(response.data.message);
@@ -86,7 +86,7 @@ const Middle = () => {
           onClick={() => setShowForm(true)}
           className=" bg-[#6366f1] w-[10rem] h-[2.5rem] mr-[1rem] text-white rounded-3xl hover:bg-[#4f52db]"
         >
-          Add New Post +
+           Add New Post +
         </button>
       </div>
 
