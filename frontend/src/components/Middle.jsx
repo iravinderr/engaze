@@ -3,19 +3,150 @@ import Post from './Post'
 import { getRequestAxios, postRequestAxios } from '../services/requests'
 import { createPostAPI, getPostsForHomeAPI } from '../services/apis'
 import Loader from './Loader'
+import kitty from "../../public/kitty.jpg";
+import toast from 'react-hot-toast'
 
 const Middle = () => {
   const [showForm,setShowForm] = useState(false);
-  const [Loading,setLoading] = useState(false)
+  const [loading,setLoading] = useState(false);
+  const [postData, setPostData] = useState([
+    {
+      profileImage: kitty,
+      name: "Profile Name",
+      username: "username",
+      captions: "these are the captions of the post",
+      media: null,
+      tags: ["tag1", "tag2", "tag3"]
+    },
+    {
+      profileImage: kitty,
+      name: "Profile Name",
+      username: "username",
+      captions: "these are the captions of the post",
+      media: kitty,
+      tags: ["tag1", "tag2", "tag3"]
+    },
+    {
+      profileImage: kitty,
+      name: "Profile Name",
+      username: "username",
+      captions: "these are the captions of the post",
+      media: kitty,
+      tags: ["tag1", "tag2", "tag3"]
+    },
+    {
+      profileImage: kitty,
+      name: "Profile Name",
+      username: "username",
+      captions: "these are the captions of the post",
+      media: kitty,
+      tags: ["tag1", "tag2", "tag3"]
+    },
+    {
+      profileImage: kitty,
+      name: "Profile Name",
+      username: "username",
+      captions: "these are the captions of the post",
+      media: kitty,
+      tags: ["tag1", "tag2", "tag3"]
+    },
+    {
+      profileImage: kitty,
+      name: "Profile Name",
+      username: "username",
+      captions: "these are the captions of the post",
+      media: kitty,
+      tags: ["tag1", "tag2", "tag3"]
+    },
+    {
+      profileImage: kitty,
+      name: "Profile Name",
+      username: "username",
+      captions: "these are the captions of the post",
+      media: kitty,
+      tags: ["tag1", "tag2", "tag3"]
+    },
+    {
+      profileImage: kitty,
+      name: "Profile Name",
+      username: "username",
+      captions: "these are the captions of the post",
+      media: kitty,
+      tags: ["tag1", "tag2", "tag3"]
+    },
+  ]);
   const [formData,setFormData] = useState({
     tags:"",
-    
     caption:"",
     images:[]
+  });
 
-  })
-
-  
+  // const postData = [
+  //   {
+  //     profileImage: kitty,
+  //     name: "Profile Name",
+  //     username: "username",
+  //     captions: "these are the captions of the post",
+  //     media: kitty,
+  //     tags: ["tag1", "tag2", "tag3"]
+  //   },
+  //   {
+  //     profileImage: kitty,
+  //     name: "Profile Name",
+  //     username: "username",
+  //     captions: "these are the captions of the post",
+  //     media: kitty,
+  //     tags: ["tag1", "tag2", "tag3"]
+  //   },
+  //   {
+  //     profileImage: kitty,
+  //     name: "Profile Name",
+  //     username: "username",
+  //     captions: "these are the captions of the post",
+  //     media: kitty,
+  //     tags: ["tag1", "tag2", "tag3"]
+  //   },
+  //   {
+  //     profileImage: kitty,
+  //     name: "Profile Name",
+  //     username: "username",
+  //     captions: "these are the captions of the post",
+  //     media: kitty,
+  //     tags: ["tag1", "tag2", "tag3"]
+  //   },
+  //   {
+  //     profileImage: kitty,
+  //     name: "Profile Name",
+  //     username: "username",
+  //     captions: "these are the captions of the post",
+  //     media: kitty,
+  //     tags: ["tag1", "tag2", "tag3"]
+  //   },
+  //   {
+  //     profileImage: kitty,
+  //     name: "Profile Name",
+  //     username: "username",
+  //     captions: "these are the captions of the post",
+  //     media: kitty,
+  //     tags: ["tag1", "tag2", "tag3"]
+  //   },
+  //   {
+  //     profileImage: kitty,
+  //     name: "Profile Name",
+  //     username: "username",
+  //     captions: "these are the captions of the post",
+  //     media: kitty,
+  //     tags: ["tag1", "tag2", "tag3"]
+  //   },
+  //   {
+  //     profileImage: kitty,
+  //     name: "Profile Name",
+  //     username: "username",
+  //     captions: "these are the captions of the post",
+  //     media: kitty,
+  //     tags: ["tag1", "tag2", "tag3"]
+  //   },
+  // ]
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -57,18 +188,22 @@ const Middle = () => {
   };
   
 
-  // (async () => {
+  // useEffect(async () => {
+  //   setLoading(true);
   //   try {
-  //     const response = await getRequestAxios(getPostsForHomeAPI, {
-  //       scrollCount: 1,
-  //       postLimit: 10
-  //     });
+  //     const response = await getRequestAxios(getPostsForHomeAPI, { scrollCount: 1, postLimit: 10});
+
+  //     if (response.data.success) {
+  //       setLoading(false);
+  //       setPostData(response.data.data);
+  //     }
   //   } catch (error) {
-      
+  //     setLoading(false);
+  //     toast.error(error.response.data.message);
   //   }
   // }, []);
 
-  if(Loading){
+  if(loading){
     return <Loader />
   }
 
@@ -79,12 +214,9 @@ const Middle = () => {
         </div>
 
         <div className='posts w-[56.5vw] mt-[2rem] pt-[8vh]'>
-          <Post />
-          <Post/>
-          <Post />
-          <Post />
-          <Post />
-          <Post />
+          {postData.map((post) => (
+              <Post post={post}/>
+            ))}
         </div>
 
         {showForm && (

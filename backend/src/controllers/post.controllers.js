@@ -87,7 +87,7 @@ export const getPostsForHome = asyncHandler(async (req, res) => {
 
     const followeeIds = followees.map(f => f.followee);
 
-    const posts = (await POST.find({ userId: { $in: followeeIds }}))
+    const posts = await POST.find({ userId: { $in: followeeIds }})
         .sort({ createdAt: -1 })
         .skip((scrollCount-1) * postLimit)
         .limit(parseInt(postLimit))

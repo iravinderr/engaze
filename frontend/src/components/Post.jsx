@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import "../styles/post.css";
 import { BiLike } from "react-icons/bi";
 import { BiSolidLike } from "react-icons/bi";
-import kitty from "../../public/kitty.jpg";
+// import kitty from "../../public/kitty.jpg";
 
-const Post = () => {
+const Post = ({ post }) => {
   const [postLike, setPostLike] = useState(false);
-  
 
   function likeHandler() {
     setPostLike(!postLike);
@@ -16,24 +15,33 @@ const Post = () => {
     <div className=" rounded-2xl shadow-lg border-2 border-gray-200 mb-[1rem]">
       <div className="User-Detail flex py-[0.8rem] pl-[1.5rem]">
         <div className="profile-image-container">
-          <img src={kitty} alt="User-image" className="profile-image" />
+          <img
+            src={post.profileImage}
+            alt="User-image"
+            className="profile-image"
+          />
         </div>
 
         <div className="flex flex-col ml-[1rem]">
-          <p className="font-semibold">Ayush Pratap Toshkhani</p>
-          <p className="text-gray-500">Talab Tillo</p>
+          <p className="font-semibold">{post.name}</p>
+          <p className="text-gray-500">{post.username}</p>
         </div>
       </div>
       <hr></hr>
-      <div className="Post-info flex flex-col items-start px-[1.5rem] py-[0.8rem] text-gray-500">
-        <p>Image Caption : It will be a very long text regarding the image</p>
-        <div className="post-container rounded-xl mb-[0.8rem] mt-[0.8rem]">
-          <img
-            src={kitty}
-            className="post-image"
-            alt="** media files **"
-          />
-        </div>
+      <div className="Post-info flex flex-col gap-2 items-start px-[1.5rem] py-[0.8rem] text-gray-500">
+
+        <p>{post.captions}</p>
+
+        {post.media ? (
+          <div className="post-container rounded-xl mb-[0.8rem] mt-[0.8rem]">
+            <img
+              src={post.media}
+              className="post-image"
+              alt="** media files **"
+            />
+          </div>
+        ) : null}
+
         <div className="flex justify-start">
           <button onClick={likeHandler}>
             {postLike ? (
