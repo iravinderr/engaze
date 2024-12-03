@@ -80,7 +80,7 @@ export const unfollowUser = asyncHandler(async (req, res) => {
     if (!followeeId) return ErrorResponse(res, 400, `Followee id is missing`);
 
     const follow = await FOLLOW.findOne({ followee: followeeId, follower: userId });
-    if (!follow) return SuccessResponse(res, 400, `You do not follow this account`);
+    if (!follow) return ErrorResponse(res, 400, `You do not follow this account`);
 
     await FOLLOW.deleteOne({ followee: followeeId, follower: userId });
 
