@@ -75,7 +75,11 @@ export const deleteCommentOnPost = asyncHandler(async (req, res) => {
 export const getOwnPosts = asyncHandler(async (req, res) => {
     const userId = req.user?._id;
 
-    const posts = await POST.find({ author: userId }).sort({ createdAt: -1 });
+    const posts = await POST.find({ author: userId })
+        .sort({ createdAt: -1 })
+        .populate("author", "profileImage name username")
+        .exec();
+
     if (!posts) return ErrorResponse(res, 404, `You haven't posted anything yet`);
 
     return SuccessResponse(res, `Posts fetched`, posts);
