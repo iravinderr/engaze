@@ -26,6 +26,9 @@ const Post = ({ postData }) => {
           <p className="text-gray-500">{postData.username}</p>
         </div>
       </div>
+      
+      
+
       <hr></hr>
       <div className="Post-info flex flex-col gap-2 items-start px-[1.5rem] py-[0.8rem] text-gray-500">
 

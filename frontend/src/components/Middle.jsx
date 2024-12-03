@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import Post from "./Post";
 import { getRequestAxios, postRequestAxios } from "../services/requests";
 import { createPostAPI, getPostsForHomeAPI } from "../services/apis";
-import toast from "react-hot-toast";
 import Loader from "./Loader";
-import { rawPostData } from "../assets/rawdata";
+import { toast } from "react-hot-toast";
+import { rawPostData } from '../assets/rawdata';
 
 const Middle = () => {
   const [showForm, setShowForm] = useState(false);
@@ -28,18 +28,23 @@ const Middle = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Submitting form data: ", formData);
+    const formDataToSend = new FormData();
+
+    formDataToSend.append("captions", formData.caption);
+    formDataToSend.append("tags", formData.tags);
+
+    formData.images.forEach((image) => {
+      formDataToSend.append("images", image);
+    });
 
     setLoading(true);
     try {
       const response = await postRequestAxios(
         createPostAPI,
-        {
-          caption: formData.caption,
-          tags: formData.tags,
-          files: formData.images,
-        },
+        formDataToSend,
         null,
-        null
+        null,
+        "multipart/form-data"
       );
 
       if (response.data.success) {
@@ -59,23 +64,23 @@ const Middle = () => {
     });
   };
 
-  async () => {
-    setLoading(true);
-    try {
-      const response = await getRequestAxios(getPostsForHomeAPI, {
-        scrollCount: 1,
-        postLimit: 10,
-      });
-      if (response.data.success) {
-        setLoading(false);
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await getRequestAxios(
+          `${getPostsForHomeAPI}?scrollCount=1&postLimit=10`,
+          null
+        );
+        console.log(response.data.message);
         setPosts(response.data.data);
+        toast.success(response.data.message);
+      } catch (error) {
+        console.log(error);
+        toast.error(error.response?.data?.message || "Failed to fetch posts");
       }
-    } catch (error) {
-      setLoading(false);
-      toast.error(error.response.data.message);
-    }
-  },
-    [];
+    })();
+
+  }, []);
 
   if (loading) {
     return <Loader />;
