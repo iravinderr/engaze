@@ -17,7 +17,7 @@ import { upload } from "../middlewares/multer.middlewares.js";
 const router = Router();
 
 
-// GET PROFILE DETAILS
+// GET PROFILE DETAILS 
 router.get("/get-profile-details", verifyToken, getProfileDetails);
 
 // UPDATE PROFILE DETAILS

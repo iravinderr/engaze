@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../styles/userProfile.css";
 import { Post } from "../components";
-import { getRequestAxios, postRequestAxios } from "../services/requests";
+import { deleteRequestAxios, getRequestAxios, postRequestAxios } from "../services/requests";
 import { checkIfFollowedAPI, fetchUserDetailsAPI, fetchUserPostsAPI, followUserAPI, unfollowUserAPI } from "../services/apis";
 import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
@@ -44,13 +44,14 @@ const UserProfile = () => {
       const followHandler = async () => {
         if(ifFollowed){
             try {
-                const followResponse = await postRequestAxios(unfollowUserAPI,{followeeId:userData._id})
+                const followResponse = await deleteRequestAxios(`${unfollowUserAPI}?followeeId=${userData._id}`,)
                 console.log(followResponse.data)
                 if(followResponse.data.success){
                     toast.success("Account Unfollowed Successfully")
                     setIfFollowed(false)
                 }
             } catch (error) {
+                console.log(error)
                 toast.error(error.response.data.message)
             }
                
@@ -59,11 +60,12 @@ const UserProfile = () => {
                 const followResponse = await postRequestAxios(followUserAPI,{followeeId:userData._id})
                 console.log(followResponse.data)
                 if(followResponse.data.success){
-                    toast.success(followResponse.data.data)
+                    toast.success("Account Followed Successfully")
                     setIfFollowed(true)
                     
                 }
             } catch (error) {
+                console.log(error)
                 toast.error(error.response.data.message)
             }
         }
