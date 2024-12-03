@@ -2,10 +2,13 @@ import { Router } from "express";
 import { verifyToken } from "../middlewares/auth.middlewares.js";
 import {
     changeUsername,
+    followUser,
     getProfileDetails,
     searchUser, 
+    unfollowUser, 
     updateProfileDetails
 } from "../controllers/user.controllers.js";
+import { upload } from "../middlewares/multer.middlewares.js";
 
 
 
@@ -22,7 +25,13 @@ router.put("/update-profile-details", verifyToken, updateProfileDetails);
 router.put("/change-username", verifyToken, changeUsername);
 
 // SEARCH USER
-router.get("/serach", verifyToken, searchUser);
+router.get("/search", verifyToken, searchUser);
+
+// FOLLOW USER
+router.post("/follow", verifyToken, upload.none(), followUser);
+
+// UNFOLLOW USER
+router.delete("/unfollow", verifyToken, unfollowUser);
 
 
 

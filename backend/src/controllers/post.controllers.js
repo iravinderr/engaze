@@ -1,4 +1,6 @@
+import { recommendPosts } from "../ai/recommendation.ai.js";
 import { FOLLOW } from "../models/follow.models.js";
+import { LIKE } from "../models/like.models.js";
 import { POST } from "../models/post.models.js";
 import { uploadToCloudinary } from "../utils/cloudinary.utils.js";
 import { asyncHandler } from "../utils/handler.utils.js";
@@ -37,6 +39,35 @@ export const deletePost = asyncHandler(async (req, res) => {
     await POST.findByIdAndDelete(postId);
 });
 
+export const likePost = asyncHandler(async (req, res) => {
+    const userId = req.user?._id;
+    const { postId } = req.body;
+
+    const like = await LIKE.findOne({ userId, postId });
+    if (like) return ErrorResponse(res, 400, `Post is already liked`);
+
+    await LIKE.create({ userId, postId });
+
+    return SuccessResponse(res, `Liked`);
+});
+
+export const unlikePost = asyncHandler(async (req, res) => {
+    const userId = req.user?._id;
+    const { postId } = req.body;
+
+    await LIKE.findOneAndDelete({ userId, postId });
+
+    return SuccessResponse(res, `Unliked`);
+});
+
+export const commentOnPost = asyncHandler(async (req, res) => {
+    
+});
+
+export const deleteCommentOnPost = asyncHandler(async (req, res) => {
+
+});
+
 export const getOwnPosts = asyncHandler(async (req, res) => {
     const userId = req.user?._id;
 
@@ -56,7 +87,7 @@ export const getPostsForHome = asyncHandler(async (req, res) => {
 
     const followeeIds = followees.map(f => f.followee);
 
-    const posts = (await POST.find({ userId: { $in: followeeIds }}))
+    const posts = await POST.find({ userId: { $in: followeeIds }})
         .sort({ createdAt: -1 })
         .skip((scrollCount-1) * postLimit)
         .limit(parseInt(postLimit))
@@ -68,15 +99,15 @@ export const getPostsForHome = asyncHandler(async (req, res) => {
     return SuccessResponse(res, `Posts fetched`, posts);
 });
 
-export const getPostForFeed = asyncHandler(async (req, res) => {
+// Function to get recommended posts for the feed
+export const getPostsForFeed = asyncHandler(async (req, res) => {
     const userId = req.user?._id;
 
-    const likedPosts = await POST.find({ userId });
-    if (!likedPosts) {
-        // recommend random posts based on the location, language, interests
-    }
+    // Fetch recommended posts based on user interactions (likes, follows, etc.)
+    const recommendedPostIds = await recommendPosts(userId);
 
-    else {
-        // use the tags of these posts to recommend posts
-    }
+    // Fetch the posts the user is recommended to see
+    const posts = await POST.find({ _id: { $in: recommendedPostIds } }).populate('author');
+
+    return SuccessResponse(res, `Recommended posts for the user`, posts);
 });

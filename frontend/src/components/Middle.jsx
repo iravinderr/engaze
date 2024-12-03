@@ -4,17 +4,17 @@ import { getRequestAxios, postRequestAxios } from "../services/requests";
 import { createPostAPI, getPostsForHomeAPI } from "../services/apis";
 import Loader from "./Loader";
 import { toast } from "react-hot-toast";
+import { rawPostData } from '../assets/rawdata';
 
 const Middle = () => {
-  const [showForm, setShowForm] = useState(false);
-  const [Loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState({
-    tags: "",
-
-    caption: "",
-    images: [],
+  const [showForm,setShowForm] = useState(false);
+  const [loading,setLoading] = useState(false);
+  const [posts, setPosts] = useState(rawPostData);
+  const [formData,setFormData] = useState({
+    tags:"",
+    caption:"",
+    images:[]
   });
-  const [posts, setPosts] = useState([]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -65,25 +65,24 @@ const Middle = () => {
   };
 
   useEffect(() => {
-    const fetchPosts = async () => {
+    (async () => {
       try {
         const response = await getRequestAxios(
           `${getPostsForHomeAPI}?scrollCount=1&postLimit=10`,
           null
         );
         console.log(response.data.message);
-        setPosts(response.data);
+        setPosts(response.data.data);
         toast.success(response.data.message);
       } catch (error) {
         console.log(error);
         toast.error(error.response?.data?.message || "Failed to fetch posts");
       }
-    };
+    })();
 
-    fetchPosts();
   }, []);
 
-  if (Loading) {
+  if (loading) {
     return <Loader />;
   }
 
@@ -98,19 +97,11 @@ const Middle = () => {
         </button>
       </div>
 
-      <div className="posts w-[56.5vw] mt-[2rem] pt-[8vh]">
-        {posts.map((post) => {
-          return (
-            <Post
-              key={post.author._id}
-              id={post._id}
-              name={post.name}
-              profileImage={post.profileImage}
-              username={post.username}
-            />
-          );
-        })}
-      </div>
+        <div className='posts w-[56.5vw] mt-[2rem] pt-[8vh]'>
+          {posts.map((postData) => (
+              <Post postData={postData}/>
+            ))}
+        </div>
 
       {showForm && (
         <div
