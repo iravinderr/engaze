@@ -21,7 +21,7 @@ const router = Router();
 router.get("/get-profile-details", verifyToken, getProfileDetails);
 
 // UPDATE PROFILE DETAILS
-router.put("/update-profile-details", verifyToken, updateProfileDetails);
+router.put("/update-profile-details", verifyToken, upload.single("file"), updateProfileDetails);
 
 // CHANGE USERNAME
 router.put("/change-username", verifyToken, changeUsername);
