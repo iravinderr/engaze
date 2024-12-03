@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "../styles/userProfile.css";
 import { Post } from "../components";
-import { getRequestAxios } from "../services/requests";
-import { fetchUserDetailsAPI, fetchUserPostsAPI } from "../services/apis";
+import { getRequestAxios, postRequestAxios } from "../services/requests";
+import { checkIfFollowedAPI, fetchUserDetailsAPI, fetchUserPostsAPI, followUserAPI } from "../services/apis";
 import { useParams } from "react-router-dom";
 
 const UserProfile = () => {
@@ -12,21 +12,50 @@ const UserProfile = () => {
     const [ifFollowed,setIfFollowed] = useState(false)
 
     useEffect(() => {
-        const fetchUserData = async () => {
+        (async () => {
           try {
             const userResponse = await getRequestAxios(fetchUserDetailsAPI, {username});
             setUserData(userResponse.data.data);
-            console.log("UserResponse ->",userResponse.data)
+
             const postsResponse = await getRequestAxios(fetchUserPostsAPI,{username});
-            console.log("User Posts->",postsResponse)
             setUserPosts(postsResponse.data.data);
           } catch (error) {
             console.error("Error fetching user data:", error);
           }
-        };
+        })();
+
+        (async () => {
+            try {
+                const response = await getRequestAxios(checkIfFollowedAPI,{username})
+                if(response.data.success){
+                    setIfFollowed(true)
+                }
+            } catch (error) {
+                setIfFollowed(false)
+                console.error("Error fetching user data:", error);
+
+            }
+        })();
     
-        fetchUserData();
+        
       }, [username]);
+
+      const followHandler = async () => {
+        try {
+            const followResponse = await postRequestAxios(followUserAPI,{followeeId:userData._id})
+            if(followResponse.data.success){
+                setIfFollowed(true)
+            }
+        } catch (error) {
+            if(error.response.data.message === (`You already follow this account` || `Followed`) ){
+                
+            }else{
+
+                setIfFollowed(false);
+                console.log(error)
+            }
+        }
+      }
 
   return (
     <div className="user-profile-container flex flex-col items-center">
@@ -53,10 +82,10 @@ const UserProfile = () => {
 
     
       <div className="user-posts-container w-[80vw]">
-        <h2 className="text-xl font-semibold mb-[1rem]">User's Posts</h2>
+        <h2 className="text-xl font-semibold mb-[1.5rem]">User's Posts</h2>
         <div className="posts-grid grid grid-cols-2 gap-4">
           {userPosts?.map((post, index) => (
-            <Post key={index} postData={post} />
+            <Post key={post._id} postData={post} />
           ))}
         </div>
       </div>
