@@ -1,3 +1,4 @@
+import { log } from "@tensorflow/tfjs";
 import { FOLLOW } from "../models/follow.models.js";
 import { POST } from "../models/post.models.js";
 import { USER } from "../models/user.models.js";
@@ -18,10 +19,10 @@ export const updateProfileDetails = asyncHandler(async (req, res) => {
     const userId = req.user?._id;
 
     const file = req.file;
-    let uploadResponse = null;
-    if (file) uploadResponse = uploadToCloudinary(file.path);
-
-    const user = await USER.findByIdAndUpdate(userId, { profileImage: uploadResponse?.secure_url });
+    let uploadResponse;
+    if (file) uploadResponse = await uploadToCloudinary(file.path);
+    
+    const user = await USER.findByIdAndUpdate(userId, { profileImage: uploadResponse.secure_url }, {new: true});
 
     return SuccessResponse(res, `Profile updated`, user);
 });
