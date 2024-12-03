@@ -5,7 +5,6 @@ import { getRequestAxios, postRequestAxios } from "../services/requests";
 import { createPostAPI, getPostsForHomeAPI } from "../services/apis";
 import Loader from "./Loader";
 import { toast } from "react-hot-toast";
-import { rawPostData } from '../assets/rawdata';
 
 const Middle = () => {
   const navigate = useNavigate();
@@ -44,7 +43,6 @@ const Middle = () => {
         setLoading(false);
         setShowForm(false);
         toast.success(response.data.message);
-        navigate("/profile");
       }
     } catch (error) {
       setLoading(false);
