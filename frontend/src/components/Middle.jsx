@@ -159,7 +159,6 @@ const Middle = () => {
                   multiple
                   onChange={handleImageUpload}
                   accept="image/*"
-                  required
                 />
               </div>
               <button
