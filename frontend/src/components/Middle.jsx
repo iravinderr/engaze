@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Post from "./Post";
 import { getRequestAxios, postRequestAxios } from "../services/requests";
 import { createPostAPI, getPostsForHomeAPI } from "../services/apis";
@@ -7,13 +8,14 @@ import { toast } from "react-hot-toast";
 import { rawPostData } from '../assets/rawdata';
 
 const Middle = () => {
+  const navigate = useNavigate();
   const [showForm, setShowForm] = useState(false);
   const [loading, setLoading] = useState(false);
   const [posts, setPosts] = useState(rawPostData);
   const [formData, setFormData] = useState({
     tags: "",
-    caption: "",
-    images: [],
+    captions: "",
+    file: null,
   });
 
   const handleInputChange = (e) => {
@@ -22,45 +24,37 @@ const Middle = () => {
   };
 
   const handleImageUpload = (e) => {
-    setFormData({ ...formData, images: Array.from(e.target.files) });
+    setFormData({ ...formData, file: e.target.files[0] });
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log("Submitting form data: ", formData);
-    const formDataToSend = new FormData();
-
-    formDataToSend.append("captions", formData.caption);
-    formDataToSend.append("tags", formData.tags);
-
-    formData.images.forEach((image) => {
-      formDataToSend.append("images", image);
-    });
-
     setLoading(true);
+    e.preventDefault();
+
     try {
       const response = await postRequestAxios(
         createPostAPI,
-        formDataToSend,
+        formData,
         null,
-        null,
+        undefined,
         "multipart/form-data"
       );
 
       if (response.data.success) {
         setLoading(false);
         setShowForm(false);
-        navigate("/profile");
         toast.success(response.data.message);
+        navigate("/profile");
       }
     } catch (error) {
       setLoading(false);
       toast.error(error.response.data.message);
     }
+
     setFormData({
       tags: "",
-      caption: "",
-      images: [],
+      captions: "",
+      file: [],
     });
   };
 
@@ -132,10 +126,10 @@ const Middle = () => {
             <h2 className="text-2xl pb-[1rem]">Add a New Post</h2>
             <form onSubmit={handleSubmit}>
               <div style={{ marginBottom: "10px" }}>
-                <label className="text-lg">Caption : </label>
+                <label className="text-lg">captions : </label>
                 <textarea
-                  name="caption"
-                  value={formData.caption}
+                  name="captions"
+                  value={formData.captions}
                   onChange={handleInputChange}
                   required
                   style={{ width: "100%", padding: "8px" }}

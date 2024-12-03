@@ -18,7 +18,7 @@ const router = Router();
 
 
 // CREATE POST
-router.post("/create", verifyToken, upload.array("media", 10), createPost);
+router.post("/create", verifyToken, upload.single("file"), createPost);
 
 // DELETE POST
 router.delete("/delete", verifyToken, deletePost);

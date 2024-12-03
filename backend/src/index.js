@@ -3,9 +3,12 @@ dotenv.config({path: "./.env"});
 import app from "./app.js";
 import connectDB from "./config/database.config.js";
 import { APP_NAME } from "./constants.js";
+import connectCD from "./config/cloudinary.config.js";
 
 
 const PORT = process.env.PORT || 8000;
+
+connectCD();
 
 // CONNECTING SERVER TO THE DATABASE
 connectDB().then(() => {
