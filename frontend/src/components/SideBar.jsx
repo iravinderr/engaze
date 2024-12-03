@@ -10,6 +10,7 @@ import { logoutAPI } from "../services/apis";
 import toast from "react-hot-toast";
 import "../styles/SideBar.css";
 import Loader from "./Loader";
+import being_social from "../../public/being_social.png"
 
 const SideBar = () => {
   const { loading, setLoading, setAuthenticated } = useAuthNavigation();
@@ -73,7 +74,7 @@ const SideBar = () => {
   return (
     <div className="cover flex flex-col pl-[1rem] sidebar-fixed">
       <div className="py-[2vw] flex items-center">
-        <img src="../../public/App_Logo.png" className="w-[3vw] " />
+        <img src={being_social} className="w-[3vw] " />
         <div className="text-2xl text-white  font-medium">{APP_NAME}</div>
       </div>
 
