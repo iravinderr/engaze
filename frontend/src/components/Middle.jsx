@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react'
 import Post from './Post'
 import { getRequestAxios, postRequestAxios } from '../services/requests'
 import { createPostAPI, getPostsForHomeAPI } from '../services/apis'
-import Loader from './Loader'
 import kitty from "../../public/kitty.jpg";
 import toast from 'react-hot-toast'
+import Loader from './Loader'
 
 const Middle = () => {
   const [showForm,setShowForm] = useState(false);
@@ -81,73 +81,6 @@ const Middle = () => {
     images:[]
   });
 
-  // const postData = [
-  //   {
-  //     profileImage: kitty,
-  //     name: "Profile Name",
-  //     username: "username",
-  //     captions: "these are the captions of the post",
-  //     media: kitty,
-  //     tags: ["tag1", "tag2", "tag3"]
-  //   },
-  //   {
-  //     profileImage: kitty,
-  //     name: "Profile Name",
-  //     username: "username",
-  //     captions: "these are the captions of the post",
-  //     media: kitty,
-  //     tags: ["tag1", "tag2", "tag3"]
-  //   },
-  //   {
-  //     profileImage: kitty,
-  //     name: "Profile Name",
-  //     username: "username",
-  //     captions: "these are the captions of the post",
-  //     media: kitty,
-  //     tags: ["tag1", "tag2", "tag3"]
-  //   },
-  //   {
-  //     profileImage: kitty,
-  //     name: "Profile Name",
-  //     username: "username",
-  //     captions: "these are the captions of the post",
-  //     media: kitty,
-  //     tags: ["tag1", "tag2", "tag3"]
-  //   },
-  //   {
-  //     profileImage: kitty,
-  //     name: "Profile Name",
-  //     username: "username",
-  //     captions: "these are the captions of the post",
-  //     media: kitty,
-  //     tags: ["tag1", "tag2", "tag3"]
-  //   },
-  //   {
-  //     profileImage: kitty,
-  //     name: "Profile Name",
-  //     username: "username",
-  //     captions: "these are the captions of the post",
-  //     media: kitty,
-  //     tags: ["tag1", "tag2", "tag3"]
-  //   },
-  //   {
-  //     profileImage: kitty,
-  //     name: "Profile Name",
-  //     username: "username",
-  //     captions: "these are the captions of the post",
-  //     media: kitty,
-  //     tags: ["tag1", "tag2", "tag3"]
-  //   },
-  //   {
-  //     profileImage: kitty,
-  //     name: "Profile Name",
-  //     username: "username",
-  //     captions: "these are the captions of the post",
-  //     media: kitty,
-  //     tags: ["tag1", "tag2", "tag3"]
-  //   },
-  // ]
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -188,20 +121,19 @@ const Middle = () => {
   };
   
 
-  // useEffect(async () => {
-  //   setLoading(true);
-  //   try {
-  //     const response = await getRequestAxios(getPostsForHomeAPI, { scrollCount: 1, postLimit: 10});
-
-  //     if (response.data.success) {
-  //       setLoading(false);
-  //       setPostData(response.data.data);
-  //     }
-  //   } catch (error) {
-  //     setLoading(false);
-  //     toast.error(error.response.data.message);
-  //   }
-  // }, []);
+  (async () => {
+    setLoading(true);
+    try {
+      const response = await getRequestAxios(getPostsForHomeAPI, { scrollCount: 1, postLimit: 10});
+      if (response.data.success) {
+        setLoading(false);
+        setPostData(response.data.data);
+      }
+    } catch (error) {
+      setLoading(false);
+      toast.error(error.response.data.message);
+    }
+  }, []);
 
   if(loading){
     return <Loader />
