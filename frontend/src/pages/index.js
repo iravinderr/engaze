@@ -5,6 +5,7 @@ import Feed from "./Feed";
 import Friends from "./Friends";
 import Settings from "./Settings";
 import Profile from "./Profile";
+import UserProfile from "./UserProfile";
 
 export {
     Feed,
@@ -14,4 +15,5 @@ export {
     Profile,
     Settings,
     Signup,
+    UserProfile
 };
