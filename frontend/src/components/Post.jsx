@@ -29,7 +29,7 @@ const Post = () => {
         <p>Image Caption : It will be a very long text regarding the image</p>
         <div className="post-container rounded-xl mb-[0.8rem] mt-[0.8rem]">
           <img
-            src=""
+            src={kitty}
             className="post-image"
             alt="** media files **"
           />
