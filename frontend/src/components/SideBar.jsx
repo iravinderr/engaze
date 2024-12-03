@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { APP_NAME } from "../services/constants";
 import { RiHomeLine } from "react-icons/ri";
 import { IoPeopleSharp, IoSettingsOutline } from "react-icons/io5";
 import { IoIosSearch } from "react-icons/io";
 import useAuthNavigation from "../hooks/AuthNavigation";
 import { NavLink } from "react-router-dom";
-import { postRequestAxios } from "../services/requests";
-import { logoutAPI } from "../services/apis";
+import { getRequestAxios, postRequestAxios } from "../services/requests";
+import { logoutAPI, searchUserAPI } from "../services/apis";
 import toast from "react-hot-toast";
 import "../styles/SideBar.css";
 import Loader from "./Loader";
@@ -15,11 +15,29 @@ import being_social from "../../public/being_social.png"
 const SideBar = () => {
   const { loading, setLoading, setAuthenticated } = useAuthNavigation();
   const [Search, setSearch] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [isSearching, setIsSearching] = useState(false);
 
-  function updateHandler(event) {
-    setSearch(event.target.value);
-    console.log(Search);
-  }
+  const handleSearch = async (query) => {
+    if (!query) {
+      setSearchResults([]);
+      setIsSearching(false);
+      return;
+    }
+
+    setIsSearching(true);
+    try {
+      const response = await getRequestAxios(`${searchUserAPI}?username=${query}`);
+      if (response.data.success) {
+        
+        setSearchResults(response.data.data);
+         toast.success(response.data.message)
+      }
+    } catch (error) {
+      console.error("Search failed:", error);
+      toast.error("Failed to fetch search results.");
+    }
+  };
 
   const handleLogout = async () => {
     setLoading(true);
@@ -67,6 +85,14 @@ const SideBar = () => {
     
   ];
 
+  useEffect(() => {
+    const delayDebounce = setTimeout(() => {
+      handleSearch(Search);
+    }, 500); // Debounce search to avoid excessive API calls
+
+    return () => clearTimeout(delayDebounce);
+  }, [Search]);
+
   if (loading) {
     return <Loader />;
   }
@@ -85,8 +111,29 @@ const SideBar = () => {
           type="text"
           placeholder="Search"
           value={Search}
-          onChange={updateHandler}
-        />
+          onChange={(e) => setSearch(e.target.value)}        />
+
+          {isSearching && searchResults?.length > 0 && (
+          <div
+            className="absolute top-[10rem] left-[1.6rem] bg-white w-[80%] max-h-[180px] overflow-y-auto rounded-md shadow-lg z-100000"
+            style={{ padding: "10px" }}
+          >
+            {searchResults.map((user) => (
+              <div
+                key={user._id}
+                className="flex items-center gap-2 py-2 px-4 hover:bg-gray-100 rounded-md cursor-pointer"
+              >
+                <img
+                  src={user.profileImage ?? "/default-avatar.png"}
+                  alt={user.name}
+                  className="w-8 h-8 rounded-full"
+                />
+                <p>{user.name}</p>
+              </div>
+            ))}
+          </div>
+        )}
+
       </div>
 
       <ul className="flex flex-col mt-[3rem] gap-4">
