@@ -76,7 +76,7 @@ export const followUser = asyncHandler(async (req, res) => {
 export const unfollowUser = asyncHandler(async (req, res) => {
     const userId = req.user?._id;
     
-    const { followeeId } = req.body;
+    const { followeeId } = req.query;
     if (!followeeId) return ErrorResponse(res, 400, `Followee id is missing`);
 
     const follow = await FOLLOW.findOne({ followee: followeeId, follower: userId });
