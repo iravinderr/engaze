@@ -2,79 +2,14 @@ import React, { useEffect, useState } from 'react'
 import Post from './Post'
 import { getRequestAxios, postRequestAxios } from '../services/requests'
 import { createPostAPI, getPostsForHomeAPI } from '../services/apis'
-import kitty from "../../public/kitty.jpg";
 import toast from 'react-hot-toast'
 import Loader from './Loader'
+import { rawPostData } from '../assets/rawdata';
 
 const Middle = () => {
   const [showForm,setShowForm] = useState(false);
   const [loading,setLoading] = useState(false);
-  const [postData, setPostData] = useState([
-    {
-      profileImage: kitty,
-      name: "Profile Name",
-      username: "username",
-      captions: "these are the captions of the post",
-      media: null,
-      tags: ["tag1", "tag2", "tag3"]
-    },
-    {
-      profileImage: kitty,
-      name: "Profile Name",
-      username: "username",
-      captions: "these are the captions of the post",
-      media: kitty,
-      tags: ["tag1", "tag2", "tag3"]
-    },
-    {
-      profileImage: kitty,
-      name: "Profile Name",
-      username: "username",
-      captions: "these are the captions of the post",
-      media: kitty,
-      tags: ["tag1", "tag2", "tag3"]
-    },
-    {
-      profileImage: kitty,
-      name: "Profile Name",
-      username: "username",
-      captions: "these are the captions of the post",
-      media: kitty,
-      tags: ["tag1", "tag2", "tag3"]
-    },
-    {
-      profileImage: kitty,
-      name: "Profile Name",
-      username: "username",
-      captions: "these are the captions of the post",
-      media: kitty,
-      tags: ["tag1", "tag2", "tag3"]
-    },
-    {
-      profileImage: kitty,
-      name: "Profile Name",
-      username: "username",
-      captions: "these are the captions of the post",
-      media: kitty,
-      tags: ["tag1", "tag2", "tag3"]
-    },
-    {
-      profileImage: kitty,
-      name: "Profile Name",
-      username: "username",
-      captions: "these are the captions of the post",
-      media: kitty,
-      tags: ["tag1", "tag2", "tag3"]
-    },
-    {
-      profileImage: kitty,
-      name: "Profile Name",
-      username: "username",
-      captions: "these are the captions of the post",
-      media: kitty,
-      tags: ["tag1", "tag2", "tag3"]
-    },
-  ]);
+  const [posts, setPosts] = useState(rawPostData);
   const [formData,setFormData] = useState({
     tags:"",
     caption:"",
@@ -127,7 +62,7 @@ const Middle = () => {
       const response = await getRequestAxios(getPostsForHomeAPI, { scrollCount: 1, postLimit: 10});
       if (response.data.success) {
         setLoading(false);
-        setPostData(response.data.data);
+        setPosts(response.data.data);
       }
     } catch (error) {
       setLoading(false);
@@ -146,8 +81,8 @@ const Middle = () => {
         </div>
 
         <div className='posts w-[56.5vw] mt-[2rem] pt-[8vh]'>
-          {postData.map((post) => (
-              <Post post={post}/>
+          {posts.map((postData) => (
+              <Post postData={postData}/>
             ))}
         </div>
 
