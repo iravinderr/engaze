@@ -10,7 +10,7 @@ import { logoutAPI, searchUserAPI } from "../services/apis";
 import toast from "react-hot-toast";
 import "../styles/SideBar.css";
 import Loader from "./Loader";
-import being_social from "../../public/being_social.png"
+import being_social from "../../public/being_social.png";
 
 const SideBar = () => {
   const { loading, setLoading, setAuthenticated } = useAuthNavigation();
@@ -28,9 +28,10 @@ const SideBar = () => {
 
     setIsSearching(true);
     try {
-      const response = await getRequestAxios(`${searchUserAPI}?username=${query}`);
+      const response = await getRequestAxios(
+        `${searchUserAPI}?username=${query}`
+      );
       if (response.data.success) {
-        
         setSearchResults(response.data.data);
       }
     } catch (error) {
@@ -79,14 +80,12 @@ const SideBar = () => {
       name: "My Profile",
       icon: <IoSettingsOutline className="text-gray-300 cursor-pointer" />,
       path: "/profile",
-    }
-    ,
+    },
     {
       name: "Settings",
       icon: <IoSettingsOutline className="text-gray-300 cursor-pointer" />,
       path: "/settings",
     },
-    
   ];
 
   useEffect(() => {
@@ -115,9 +114,10 @@ const SideBar = () => {
           type="text"
           placeholder="Search"
           value={Search}
-          onChange={(e) => setSearch(e.target.value)}        />
+          onChange={(e) => setSearch(e.target.value)}
+        />
 
-          {isSearching && searchResults?.length > 0 && (
+        {isSearching && searchResults?.length > 0 && (
           <div
             className="absolute top-[10rem] left-[1.6rem] bg-white w-[80%] max-h-[180px] overflow-y-auto rounded-md shadow-lg z-100000"
             style={{ padding: "10px" }}
@@ -139,7 +139,6 @@ const SideBar = () => {
             ))}
           </div>
         )}
-
       </div>
 
       <ul className="flex flex-col mt-[3rem] gap-4">

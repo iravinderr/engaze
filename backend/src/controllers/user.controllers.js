@@ -1,6 +1,7 @@
 import { FOLLOW } from "../models/follow.models.js";
 import { POST } from "../models/post.models.js";
 import { USER } from "../models/user.models.js";
+import { uploadToCloudinary } from "../utils/cloudinary.utils.js";
 import { asyncHandler } from "../utils/handler.utils.js";
 import { ErrorResponse, SuccessResponse } from "../utils/response.utils.js";
 
@@ -14,7 +15,15 @@ export const getProfileDetails = asyncHandler(async (req, res) => {
 });
 
 export const updateProfileDetails = asyncHandler(async (req, res) => {
-    
+    const userId = req.user?._id;
+
+    const file = req.file;
+    let uploadResponse = null;
+    if (file) uploadResponse = uploadToCloudinary(file.path);
+
+    const user = await USER.findByIdAndUpdate(userId, { profileImage: uploadResponse?.secure_url });
+
+    return SuccessResponse(res, `Profile updated`, user);
 });
 
 export const changeUsername = asyncHandler(async (req, res) => {

@@ -12,7 +12,7 @@ export const uploadToCloudinary = async (localFilePath) => {
             use_filename: true
         });
 
-        fs.unlink(localFilePath);
+        fs.unlinkSync(localFilePath);
         return uploadResponse;
     } catch (error) {
         console.log("!!! ERROR IN CLOUDINARY FILE UPLOAD !!!");
