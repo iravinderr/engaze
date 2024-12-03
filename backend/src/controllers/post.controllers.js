@@ -83,7 +83,7 @@ export const getOwnPosts = asyncHandler(async (req, res) => {
 
 export const getPostsForHome = asyncHandler(async (req, res) => {
     const userId = req.user?._id;
-    const { scrollCount, postLimit } = req.query;
+    // const { scrollCount, postLimit } = req.query;
 
     const followees = await FOLLOW.find({ follower: userId }).select("followee");
 
@@ -93,10 +93,10 @@ export const getPostsForHome = asyncHandler(async (req, res) => {
 
     const posts = await POST.find({ author: { $in: followeeIds }})
         .sort({ createdAt: -1 })
-        .skip((scrollCount-1) * postLimit)
-        .limit(parseInt(postLimit))
         .populate("author", "profileImage name username")
         .exec();
+        // .skip((scrollCount-1) * postLimit)
+        // .limit(parseInt(postLimit))
 
     if (!posts) return ErrorResponse(res, 404, `No more posts to show`);
 
