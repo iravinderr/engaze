@@ -1,0 +1,37 @@
+.user-profile-container {
+    margin-left: 17vw; /* Accounts for the sidebar */
+    padding: 2rem;
+  }
+  
+  .user-details-container {
+    display: flex;
+    background-color: #fff;
+  }
+  
+  .user-info {
+    flex: 1;
+  }
+  
+  .profile-image-container {
+    flex: 0.3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .user-profile-image {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+  }
+  
+  .user-posts-container {
+    margin-top: 2rem;
+  }
+  
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  
