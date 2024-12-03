@@ -2,6 +2,7 @@ import { Router } from "express";
 import { verifyToken } from "../middlewares/auth.middlewares.js";
 import {
     changeUsername,
+    checkIfFollowed,
     fetchUserDetails,
     followUser,
     getProfileDetails,
@@ -36,6 +37,9 @@ router.post("/follow", verifyToken, upload.none(), followUser);
 
 // UNFOLLOW USER
 router.delete("/unfollow", verifyToken, unfollowUser);
+
+// CHECK IF USER IS FOLLOWED
+router.get("/check-if-followed", verifyToken, checkIfFollowed);
 
 
 
