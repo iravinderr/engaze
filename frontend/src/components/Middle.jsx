@@ -65,7 +65,6 @@ const Middle = () => {
         );
         console.log(response.data.message);
         setPosts(response.data.data);
-        toast.success(response.data.message);
       } catch (error) {
         console.log(error);
       }

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "../styles/userProfile.css";
 import { Post } from "../components";
-import { deleteRequestAxios, getRequestAxios, postRequestAxios } from "../services/requests";
-import { checkIfFollowedAPI, fetchUserDetailsAPI, fetchUserPostsAPI, followUserAPI, getOwnPostsAPI, getProfileDetailsAPI, unfollowUserAPI } from "../services/apis";
+import {  getRequestAxios} from "../services/requests";
+import {  getOwnPostsAPI, getProfileDetailsAPI} from "../services/apis";
 import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 
@@ -10,7 +10,6 @@ const Profile = () => {
     const { username } = useParams(); // Fetch username from URL
     const [userData, setUserData] = useState(null);
     const [userPosts, setUserPosts] = useState([]);
-    const [ifFollowed,setIfFollowed] = useState(false)
 
     useEffect(() => {
         (async () => {
