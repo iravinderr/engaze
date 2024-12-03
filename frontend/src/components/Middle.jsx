@@ -91,8 +91,8 @@ const Middle = () => {
       </div>
 
       <div className="posts w-[56.5vw] mt-[2rem] pt-[8vh]">
-        {posts.map((postData) => (
-          <Post postData={postData} />
+        {posts.map((post) => (
+          <Post postData={post} />
         ))}
       </div>
 
