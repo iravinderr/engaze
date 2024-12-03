@@ -4,7 +4,7 @@ import { BiLike } from "react-icons/bi";
 import { BiSolidLike } from "react-icons/bi";
 import kitty from "../../public/kitty.jpg";
 
-const Post = () => {
+const Post = ({_id,}) => {
   const [postLike, setPostLike] = useState(false);
   
 
@@ -24,16 +24,21 @@ const Post = () => {
           <p className="text-gray-500">Talab Tillo</p>
         </div>
       </div>
+      
+      
+
       <hr></hr>
       <div className="Post-info flex flex-col items-start px-[1.5rem] py-[0.8rem] text-gray-500">
-        <p>Image Caption : It will be a very long text regarding the image</p>
-        <div className="post-container rounded-xl mb-[0.8rem] mt-[0.8rem]">
+        <div className="post-container rounded-xl mt-[0.8rem]">
           <img
             src=""
             className="post-image"
             alt="** media files **"
           />
         </div>
+        <p className="mb-[0.6rem]">Image Caption : It will be a very long text regarding the image</p>
+        
+        
         <div className="flex justify-start">
           <button onClick={likeHandler}>
             {postLike ? (
