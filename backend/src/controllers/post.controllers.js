@@ -1,5 +1,6 @@
 import { recommendPosts } from "../ai/recommendation.ai.js";
 import { FOLLOW } from "../models/follow.models.js";
+import { LIKE } from "../models/like.models.js";
 import { POST } from "../models/post.models.js";
 import { uploadToCloudinary } from "../utils/cloudinary.utils.js";
 import { asyncHandler } from "../utils/handler.utils.js";
@@ -36,6 +37,35 @@ export const deletePost = asyncHandler(async (req, res) => {
     if (!post) return ErrorResponse(res, 404, `Post does not exists`);
 
     await POST.findByIdAndDelete(postId);
+});
+
+export const likePost = asyncHandler(async (req, res) => {
+    const userId = req.user?._id;
+    const { postId } = req.body;
+
+    const like = await LIKE.findOne({ userId, postId });
+    if (like) return ErrorResponse(res, 400, `Post is already liked`);
+
+    await LIKE.create({ userId, postId });
+
+    return SuccessResponse(res, `Liked`);
+});
+
+export const unlikePost = asyncHandler(async (req, res) => {
+    const userId = req.user?._id;
+    const { postId } = req.body;
+
+    await LIKE.findOneAndDelete({ userId, postId });
+
+    return SuccessResponse(res, `Unliked`);
+});
+
+export const commentOnPost = asyncHandler(async (req, res) => {
+    
+});
+
+export const deleteCommentOnPost = asyncHandler(async (req, res) => {
+
 });
 
 export const getOwnPosts = asyncHandler(async (req, res) => {

@@ -22,6 +22,8 @@ export const unfollowUserAPI = `${base_url}/user/unfollow`;
 // POST APIs
 export const createPostAPI = `${base_url}/post/create`;
 export const deletePostAPI = `${base_url}/post/delete`;
+export const likePostAPI = `${base_url}/post/like`;
+export const unlikePostAPI = `${base_url}/post/unlike`;
 export const getOwnPostsAPI = `${base_url}/post/get-own-posts`;
 export const getPostsForHomeAPI = `${base_url}/post/get-posts-for-home`;
 export const getPostsForFeedAPI = `${base_url}/post/get-posts-for-feed`;
