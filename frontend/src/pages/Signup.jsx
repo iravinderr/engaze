@@ -6,6 +6,7 @@ import { signupAPI } from "../services/apis";
 import { Link } from "react-router-dom";
 import { Loader } from "../components";
 import insta from "/insta.png";
+import toast from "react-hot-toast";
 
 const Signup = () => {
   const [inputData, setInputData] = useState({
@@ -37,7 +38,7 @@ const Signup = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await postRequestAxios(signupAPI, inputData, null, null);
+      const response = await postRequestAxios(signupAPI, inputData);
 
       if (response.data.success) {
         setLoading(false);

@@ -21,12 +21,12 @@ export const createPost = asyncHandler(async (req, res) => {
     // const filesUrl = [];
     // if (files.length !== 0) {
     //     files.forEach(async (file) => {
-    //         const uploadResponse = await uploadToCloudinary(file.path);
-    //         filesUrl.push(uploadResponse.secure_url);
+            const uploadResponse = await uploadToCloudinary(file.path);
+            // filesUrl.push(uploadResponse.secure_url);
     //     });
     // }
 
-    const post = await POST.create({ author: userId, captions, tags});
+    const post = await POST.create({ author: userId, captions, media: uploadResponse.secure_url, tags});
 
     return SuccessResponse(res, `Post created`, post);
 });

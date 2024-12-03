@@ -11,10 +11,10 @@ const postSchema = new Schema(
             type: String,
             required: true,
         },
-        media: [{
+        media: {
             type: String,
             // required: true
-        }],
+        },
         tags: [{
             type: String
         }]

@@ -76,3 +76,16 @@ export const unfollowUser = asyncHandler(async (req, res) => {
 
     return SuccessResponse(res, `Unfollowed`);
 });
+
+export const checkIfFollowed = asyncHandler(async (req, res) => {
+    const userId = req.user?._id;
+    const { username } = req.query;
+
+    const user = await USER.findOne({ username });
+    if (!user) return ErrorResponse(res, 404, `User not found`);
+
+    const followExists = await FOLLOW.findOne({ followee: user._id, follower: userId});
+    if (!followExists) return ErrorResponse(res, 404, ``);
+
+    return SuccessResponse(res, ``, null);
+})
