@@ -40,6 +40,7 @@ export const changeUsername = asyncHandler(async (req, res) => {
 });
 
 export const searchUser = asyncHandler(async (req, res) => {
+    const userId = req.user?._id;
     const { username } = req.query;
 
     if (!username) return ErrorResponse(res, 400, `Enter the username`);
