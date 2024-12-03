@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { APP_NAME } from "../services/constants";
 import { postRequestAxios } from "../services/requests";
 import { signupAPI } from "../services/apis";
-import toast from "react-hot-toast";
 import Loader from "./Loader";
+import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
@@ -36,13 +36,13 @@ const Signup = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await postRequestAxios(signupAPI, inputData, null, null);
-
+      const response = await postRequestAxios(signupAPI, inputData);
+      
       if (response.data.success) {
         setLoading(false);
         navigate("/")
         toast.success(response.data.message);
-      }
+      } 
     } catch (error) {
       setLoading(false);
       toast.error(error.response.data.message);

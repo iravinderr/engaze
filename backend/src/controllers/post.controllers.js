@@ -2,6 +2,7 @@ import { recommendPosts } from "../ai/recommendation.ai.js";
 import { FOLLOW } from "../models/follow.models.js";
 import { LIKE } from "../models/like.models.js";
 import { POST } from "../models/post.models.js";
+import { USER } from "../models/user.models.js";
 import { uploadToCloudinary } from "../utils/cloudinary.utils.js";
 import { asyncHandler } from "../utils/handler.utils.js";
 import { ErrorResponse, SuccessResponse } from "../utils/response.utils.js";
@@ -88,7 +89,7 @@ export const getPostsForHome = asyncHandler(async (req, res) => {
 
     const followeeIds = followees.map(f => f.followee);
 
-    const posts = await POST.find({ userId: { $in: followeeIds }})
+    const posts = await POST.find({ author: { $in: followeeIds }})
         .sort({ createdAt: -1 })
         .skip((scrollCount-1) * postLimit)
         .limit(parseInt(postLimit))
@@ -111,4 +112,18 @@ export const getPostsForFeed = asyncHandler(async (req, res) => {
     const posts = await POST.find({ _id: { $in: recommendedPostIds } }).populate('author');
 
     return SuccessResponse(res, `Recommended posts for the user`, posts);
+});
+
+export const fetchUserPosts = asyncHandler(async (req, res) => {
+    const { username } = req.query;
+
+    const user = await USER.findOne({ username });
+    if (!user) return ErrorResponse(res, 404, `User not found`);
+
+    const userPosts = await POST.find({ author: user._id })
+        .sort({ createdAt: -1 })
+        .populate("author", "profileImage name username");
+    if (!userPosts) return ErrorResponse(res, 404, `No posts found`);
+
+    return SuccessResponse(res, ``, userPosts);
 });

@@ -1,4 +1,5 @@
 import { FOLLOW } from "../models/follow.models.js";
+import { POST } from "../models/post.models.js";
 import { USER } from "../models/user.models.js";
 import { asyncHandler } from "../utils/handler.utils.js";
 import { ErrorResponse, SuccessResponse } from "../utils/response.utils.js";
@@ -37,6 +38,15 @@ export const searchUser = asyncHandler(async (req, res) => {
     if (!users.length) return ErrorResponse(res, 404, `No user exists`);
 
     return SuccessResponse(res, `Users Fetched`, users);
+});
+
+export const fetchUserDetails = asyncHandler(async (req, res) => {
+    const { username } = req.query;
+
+    const user = await USER.findOne({username}).select("-password -verified -email");
+    if (!user) return ErrorResponse(res, 404, `User not found`);
+
+    return SuccessResponse(res, ``, user);
 });
 
 export const followUser = asyncHandler(async (req, res) => {
