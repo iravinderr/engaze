@@ -73,7 +73,7 @@ const SideBar = () => {
 
   return (
     <div className="cover flex flex-col pl-[1rem] sidebar-fixed">
-      <div className="py-[2vw] flex items-center">
+      <div className="py-[2vw] flex items-center gap-4">
         <img src={being_social} className="w-[3vw] " />
         <div className="text-2xl text-white  font-medium">{APP_NAME}</div>
       </div>
@@ -94,7 +94,7 @@ const SideBar = () => {
           <li key={item.name}>
             <NavLink
               className={({ isActive }) =>
-                `flex text-white items-center text-xl pl-[0.7rem] pb-[1.4rem] ${
+                `flex gap-2 text-white items-center text-xl pl-[0.7rem] pb-[1.4rem] ${
                   isActive ? `bg-[#6366f1]` : ``
                 } hover:bg-[#6366f1] rounded-md`
               }
