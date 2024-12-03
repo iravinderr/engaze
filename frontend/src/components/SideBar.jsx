@@ -39,7 +39,7 @@ const SideBar = () => {
   };
 
   const handleUserClick = (username) => {
-    
+    setIsSearching(false)
     navigate(`user/${username}`);
   };
 

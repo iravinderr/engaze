@@ -13,7 +13,7 @@ const Post = ({ postData }) => {
   return (
     <div className=" rounded-2xl shadow-lg border-2 border-gray-200 mb-[1rem]">
       <div className="User-Detail flex py-[0.8rem] pl-[1.5rem]">
-        <div className="profile-image-container">
+        <div className="profile-image-contain">
           <img
             src={postData.profileImage}
             alt="User-image"

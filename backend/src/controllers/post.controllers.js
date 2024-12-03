@@ -124,6 +124,6 @@ export const fetchUserPosts = asyncHandler(async (req, res) => {
         .sort({ createdAt: -1 })
         .populate("author", "profileImage name username");
     if (!userPosts) return ErrorResponse(res, 404, `No posts found`);
-
+    console.log(userPosts)
     return SuccessResponse(res, ``, userPosts);
 });

@@ -34,7 +34,7 @@ export const searchUser = asyncHandler(async (req, res) => {
 
     if (!username) return ErrorResponse(res, 400, `Enter the username`);
     const users = await USER.find({ username: { $regex: `^${username}`, $options: "i" }}).select("_id profileImage username name");
-    console.log(users)
+
     if (!users.length) return ErrorResponse(res, 404, `No user exists`);
 
     return SuccessResponse(res, `Users Fetched`, users);
