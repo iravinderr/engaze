@@ -38,7 +38,7 @@ const Signup = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await postRequestAxios(signupAPI, inputData, null, null);
+      const response = await postRequestAxios(signupAPI, inputData);
 
       if (response.data.success) {
         setLoading(false);
