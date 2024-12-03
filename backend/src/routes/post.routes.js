@@ -6,6 +6,7 @@ import {
     createPost,
     deleteCommentOnPost,
     deletePost,
+    fetchUserPosts,
     getOwnPosts,
     getPostsForFeed,
     getPostsForHome,
@@ -43,6 +44,9 @@ router.get("/get-posts-for-home", verifyToken, getPostsForHome);
 
 // GET POSTS FOR FEED
 router.get("/get-posts-for-feed", verifyToken, getPostsForFeed);
+
+// FETCH USER POSTS
+router.get("/fetch-user-posts", verifyToken, fetchUserPosts);
 
 
 

@@ -5,7 +5,7 @@ import { ErrorResponse, SuccessResponse } from "../utils/response.utils.js";
 
 export const signup = asyncHandler(async (req, res) => {
     const { name, username, email, password } = req.body;
-
+    
     if (!name || !username || !email || !password) return ErrorResponse(res, 400, `Fill all the details`);
 
     if (!email.includes("@")) return ErrorResponse(res, 400, `Invalid email address`);
@@ -21,6 +21,7 @@ export const signup = asyncHandler(async (req, res) => {
     if (user) return ErrorResponse(res, 400, `Username is already taken`);
 
     await USER.create({ name, username, email, password, verified: true});
+    
 
     return SuccessResponse(res, `Account created`);
 });
