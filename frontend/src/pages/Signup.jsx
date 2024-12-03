@@ -6,6 +6,7 @@ import { signupAPI } from "../services/apis";
 import { Link } from "react-router-dom";
 import { Loader } from "../components";
 import insta from "/insta.png";
+import toast from "react-hot-toast";
 
 const Signup = () => {
   const [inputData, setInputData] = useState({
