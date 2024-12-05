@@ -63,7 +63,7 @@ const Middle = () => {
           `${getPostsForHomeAPI}`,
           null
         );
-        console.log(response.data.message);
+        console.log(response.data);
         setPosts(response.data.data);
       } catch (error) {
         console.log(error);
@@ -89,7 +89,7 @@ const Middle = () => {
 
       <div className="posts w-[56.5vw] mt-[2rem] pt-[8vh]">
         {posts.map((post) => (
-          <Post postData={post} />
+          <Post key={post._id} postData={post} />
         ))}
       </div>
 

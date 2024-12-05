@@ -57,7 +57,7 @@ export const likePost = asyncHandler(async (req, res) => {
 
 export const unlikePost = asyncHandler(async (req, res) => {
     const userId = req.user?._id;
-    const { postId } = req.body;
+    const { postId } = req.query;
 
     await LIKE.findOneAndDelete({ userId, postId });
 
