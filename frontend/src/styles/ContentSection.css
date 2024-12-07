@@ -17,3 +17,13 @@
   padding-left:20px;
   background-color: #f9f9f9; 
 }
+
+@media (max-width: 768px) { /* Adjust the max-width as needed for your breakpoints */
+  .activity-section {
+    display: none;
+  }
+
+  .content-section {
+    grid-template-columns: 1fr; /* Adjust the layout to take full width */
+  }
+}

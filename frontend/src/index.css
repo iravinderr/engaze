@@ -44,7 +44,14 @@ body{
     grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
   }
-
+  @media (max-width: 768px) { /* Adjust the max-width as needed for your breakpoints */
+    .posts-grid {
+      grid-template-columns: 1fr;
+      
+    }
+  
+    
+  }
   .cover{
     background-color: #5046e5;
 }
@@ -56,6 +63,16 @@ body{
     color: #e2e2f6;
     
 }
+
+.Sidebar-input-find{
+  width: 85vw;
+  height: full;
+  outline:none;
+  background-color: #6366f1;
+  color: #e2e2f6;
+  
+}
+
 .search-icon{
     width:2vw;
     font-size: 1.2rem;

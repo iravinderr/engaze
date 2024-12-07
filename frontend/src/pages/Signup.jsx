@@ -57,7 +57,7 @@ const Signup = () => {
 
   return (
     <div className="w-screen h-screen flex flex-row justify-center pt-[3rem]">
-      <div className="w-[25%] h-[50%]">
+      <div className="hidden w-[25%] h-[50%] md:block">
         <img src={insta}></img>
       </div>
       <div className="flex flex-col">

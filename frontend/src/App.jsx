@@ -1,5 +1,5 @@
 import React from "react";
-import { SideBar } from "./components";
+import { BottomNav, SideBar } from "./components";
 import { Outlet } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import useAuthNavigation from "./hooks/AuthNavigation";
@@ -9,9 +9,10 @@ function App() {
 
   return (
       <div className="h-screen w-screen flex">
-        <div className="w-[17vw]">{!authenticated ? null : <SideBar />}</div>
+        <div className="hidden w-[17vw] md:block">{!authenticated ? null : <SideBar />}</div>
         <div><Outlet /></div>
         <Toaster />
+        <div className="md:hidden">{!authenticated ? null : <BottomNav />}</div>
       </div>
   );
 }

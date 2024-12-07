@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "../styles/userProfile.css";
 import { Post } from "../components";
 import { deleteRequestAxios, getRequestAxios, postRequestAxios } from "../services/requests";
 import { checkIfFollowedAPI, fetchUserDetailsAPI, fetchUserPostsAPI, followUserAPI, unfollowUserAPI } from "../services/apis";
