@@ -84,7 +84,7 @@ const Post = ({ postData }) => {
         <p>{postData.captions}</p>
 
         {postData.media ? (
-          <div className="post-container rounded-xl mb-[0.8rem] mt-[0.8rem]">
+          <div className="post-container rounded-xl my-[0.8rem] ">
             <img
               src={postData.media}
               className="post-image"

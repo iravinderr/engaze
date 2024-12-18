@@ -24,7 +24,7 @@ const Home = () => {
     <div className="grid-container h-full w-full">
       <div className="grid-item grid-content">
         <div className="content-section">
-          <div className="middle-section">
+          <div className="middle-section pl-[2.4vw] md:pl-[1.2vw]">
             <Middle isMobile={isMobile} />
           </div>
           {!isMobile && ( // Conditionally rendering the Activity Area

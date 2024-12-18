@@ -54,7 +54,7 @@ const Find = () => {
 
   return (
     <div >
-        <div className="search-bar flex items-center justify-center h-[2.6rem] rounded-xl shadow-xl ml-[1.2rem] top-[1rem] absolute">
+        <div className="search-bar flex items-center justify-center h-[2.6rem] rounded-xl shadow-xl mx-[2.4vw] top-[1rem] absolute">
         <IoIosSearch className="text-white text-xl ml-[0.7rem] mr-[0.4rem]" />
         <input
           className="Sidebar-input-find placeholder-gray-200 rounded-xl text-lg"
@@ -66,7 +66,7 @@ const Find = () => {
 
         {(isSearching && searchResults?.length > 0 ) ? (
           <div
-            className="absolute top-[3rem] left-[0.2rem] bg-white w-[90vw] max-h-[180px] overflow-y-auto rounded-md shadow-lg "
+            className="absolute top-[3rem] bg-white w-[90vw] max-h-[180px] overflow-y-auto rounded-md shadow-lg "
             style={{ padding: "10px" }}
           >
             {searchResults.map((user) => (
@@ -91,7 +91,7 @@ const Find = () => {
             ))}
           </div>
         ) : Search.length === 0 ? 
-        <div className="absolute top-[3rem] flex justify-center items-center left-[0.2rem] bg-white w-[90vw] h-[100vh] text-xl font-semibold rounded-md shadow-lg "
+        <div className="absolute top-[3rem] flex justify-center items-center left-[0.2rem] bg-white w-[92.3vw] h-[100vh] text-xl font-semibold rounded-md shadow-lg "
         style={{ padding: "10px" }}>
                 "Search Your Friends and Have Fun"
         </div> : 

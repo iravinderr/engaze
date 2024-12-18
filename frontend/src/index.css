@@ -15,6 +15,7 @@ body{
   
   .user-details-container {
     display: flex;
+    
     background-color: #fff;
   }
   
@@ -36,7 +37,7 @@ body{
   }
   
   .user-posts-container {
-    margin-top: 2rem;
+    margin-top: 1rem;
   }
   
   .posts-grid {
