@@ -1,19 +1,29 @@
+
 .content-section {
-    display: grid;
-    grid-template-columns: 2.15fr 0.85fr; 
-    height: 100%;
-    width: 100%;
-    
+  display: grid;
+  grid-template-columns: 2.15fr 0.85fr; 
+  height: 100%;
+  width: 100%;
   
-  }
+
+}
+
+.middle-section {
   
-  .middle-section {
-    padding-left: 20px;
-    background-color: #f9f9f9; 
-  }
-  
+  background-color: #f9f9f9; 
+}
+
+.activity-section {
+  padding-left:2px;
+  background-color: #f9f9f9; 
+}
+
+@media (max-width: 768px) { /* Adjust the max-width as needed for your breakpoints */
   .activity-section {
-    padding-left:20px;
-    background-color: #f9f9f9; 
+    display: none;
   }
-  
+
+  .content-section {
+    grid-template-columns: 1fr; /* Adjust the layout to take full width */
+  }
+}

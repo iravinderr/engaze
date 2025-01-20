@@ -5,6 +5,7 @@ import { USER } from "../models/user.models.js";
 import { uploadToCloudinary } from "../utils/cloudinary.utils.js";
 import { asyncHandler } from "../utils/handler.utils.js";
 import { ErrorResponse, SuccessResponse } from "../utils/response.utils.js";
+import { LIKE } from "../models/like.models.js";
 
 export const getProfileDetails = asyncHandler(async (req, res) => {
     const userId = req.user?._id;
@@ -99,4 +100,15 @@ export const checkIfFollowed = asyncHandler(async (req, res) => {
     if (!followExists) return ErrorResponse(res, 404, ``);
 
     return SuccessResponse(res, ``, null);
+})
+
+export const checkIfLiked = asyncHandler(async (req,res) => {
+    const userId = req.user?._id;
+    const { postId } = req.query;
+
+    const likeExists = await LIKE.findOne({userId,postId});
+    const likes = await LIKE.find({postId})
+    if (!likeExists) return ErrorResponse(res,404,'Did not Like',likes);
+
+    return SuccessResponse(res,'',likes);
 })

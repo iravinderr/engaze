@@ -1,19 +1,68 @@
-import "../styles/post.css";
-import React, { useState } from "react";
-import { BiLike } from "react-icons/bi";
-import { BiSolidLike } from "react-icons/bi";
+import React, { useEffect, useState } from "react";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { deleteRequestAxios, getRequestAxios, postRequestAxios } from "../services/requests";
+import { checkIfLikedAPI, likePostAPI, unlikePostAPI } from "../services/apis";
+import {toast} from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+
 
 const Post = ({ postData }) => {
-  const [postLike, setPostLike] = useState(false);
+  const [ifLiked, setIfLiked] = useState(false);
+  const [totalLikes , setTotalLikes] = useState(0)
+  const navigate = useNavigate();
 
-  function likeHandler() {
-    setPostLike(!postLike);
+  const likeHandler = async () => {
+    if(ifLiked){
+        try {
+            const likeResponse = await deleteRequestAxios(unlikePostAPI,{postId:postData._id})
+          
+            if(likeResponse.data.success){
+                toast.success("Post Unliked Successfully")
+                setTotalLikes(totalLikes-1)
+                setIfLiked(false)
+            }
+        } catch (error) {
+            
+            toast.error(error.response.data.message)
+        }
+           
+    }else{
+      try {
+        const likeResponse = await postRequestAxios(likePostAPI,{postId:postData._id})
+        
+        if(likeResponse.data.success){
+            toast.success("Post Liked Successfully")
+            setTotalLikes(totalLikes+1)
+            setIfLiked(true)
+        }
+    } catch (error) {
+        
+        toast.error(error.response.data.message)
+    }
+    }
+    
   }
 
+  useEffect(() => {
+    (async () => {
+      try {
+        const checkLikeResponse = await getRequestAxios(checkIfLikedAPI,{postId:postData._id})
+        setTotalLikes(checkLikeResponse.data.data.length)
+        
+        if(checkLikeResponse){
+          setIfLiked(true);
+        }
+      } catch (error) {
+        
+
+      }
+    })()
+  },[])
+  
   return (
     <div className=" rounded-2xl shadow-lg border-2 border-gray-200 mb-[1rem]">
       <div className="User-Detail flex py-[0.8rem] pl-[1.5rem]">
-        <div className="profile-image-contain">
+        <div onClick={() => navigate(`/user/${postData.author.username}`)} className="profile-image-contain">
           <img
             src={postData.author.profileImage}
             alt="User-image"
@@ -35,7 +84,7 @@ const Post = ({ postData }) => {
         <p>{postData.captions}</p>
 
         {postData.media ? (
-          <div className="post-container rounded-xl mb-[0.8rem] mt-[0.8rem]">
+          <div className="post-container rounded-xl my-[0.8rem] ">
             <img
               src={postData.media}
               className="post-image"
@@ -46,14 +95,14 @@ const Post = ({ postData }) => {
 
         <div className="flex justify-start">
           <button onClick={likeHandler}>
-            {postLike ? (
-              <BiSolidLike className="text-xl hover:text-black" />
+            {ifLiked ? (
+              <FaHeart className="text-xl hover:text-red-400 text-red-500" />
             ) : (
-              <BiLike className="text-xl hover:text-black" />
+              <FaRegHeart className="text-xl hover:text-red-400 text-red-500" />
             )}
           </button>
-          <p className="ml-[1rem] text-lg font-semibold">
-            {postLike ? "Liked" : "Like"}
+          <p className="ml-[0.5rem] text-md font-semibold ">
+            {totalLikes > 0 ? totalLikes : ''}
           </p>
         </div>
       </div>

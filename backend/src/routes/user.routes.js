@@ -3,6 +3,7 @@ import { verifyToken } from "../middlewares/auth.middlewares.js";
 import {
     changeUsername,
     checkIfFollowed,
+    checkIfLiked,
     fetchUserDetails,
     followUser,
     getProfileDetails,
@@ -41,6 +42,6 @@ router.delete("/unfollow", verifyToken, unfollowUser);
 // CHECK IF USER IS FOLLOWED
 router.get("/check-if-followed", verifyToken, checkIfFollowed);
 
-
+router.get("/check-if-liked",verifyToken,checkIfLiked)
 
 export default router;

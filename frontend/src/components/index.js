@@ -6,6 +6,8 @@ import Post from "./Post";
 import PrivateRoute from "./PrivateRoute";
 import SideBar from "./SideBar";
 import Signup from "./Signup";
+import BottomNav from "./BottomNav";
+import SkeletonLoader from "./SkeletonLoader";
 
 export {
     Activity,
@@ -15,5 +17,7 @@ export {
     Post,
     SideBar,
     Signup,
-    PrivateRoute
+    PrivateRoute,
+    BottomNav,
+    SkeletonLoader
 };

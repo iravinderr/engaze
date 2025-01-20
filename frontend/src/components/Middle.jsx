@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Post from "./Post";
 import { getRequestAxios, postRequestAxios } from "../services/requests";
 import { createPostAPI, getPostsForHomeAPI } from "../services/apis";
-import Loader from "./Loader";
 import { toast } from "react-hot-toast";
+import SkeletonLoader from "./SkeletonLoader";
 
 const Middle = () => {
-  const navigate = useNavigate();
   const [showForm, setShowForm] = useState(false);
   const [loading, setLoading] = useState(false);
   const [posts, setPosts] = useState([]);
@@ -58,39 +56,52 @@ const Middle = () => {
 
   useEffect(() => {
     (async () => {
+      setLoading(true);
       try {
-        const response = await getRequestAxios(
-          `${getPostsForHomeAPI}`,
-          null
-        );
-        console.log(response.data.message);
+        const response = await getRequestAxios(`${getPostsForHomeAPI}`, null);
+        console.log(response.data);
         setPosts(response.data.data);
-        toast.success(response.data.message);
+        setLoading(false);
       } catch (error) {
         console.log(error);
       }
     })();
-
   }, []);
 
   if (loading) {
-    return <Loader />;
+    return (
+      <div className="md:w-[57vw]">
+        <div
+          role="status"
+          class="space-y-8 animate-pulse md:space-y-0 md:space-x-8 rtl:space-x-reverse md:flex md:items-center"
+        >
+          <div class="w-full">
+            <div class="h-[8vh] bg-gray-200 dark:bg-gray-700 w-full mb-4"></div>
+          </div>
+        </div>
+        <SkeletonLoader />
+        <SkeletonLoader />
+        <SkeletonLoader />
+      </div>
+    );
   }
 
   return (
     <div className="flex flex-col">
-      <div className="bg-white flex justify-end items-center w-[56.5vw] h-[4rem] shadow-md fixed">
+      <div
+        className={`bg-white flex justify-end items-center w-[95vw] md:w-[56.5vw]  h-[4rem] shadow-md fixed`}
+      >
         <button
           onClick={() => setShowForm(true)}
           className=" bg-[#6366f1] w-[10rem] h-[2.5rem] mr-[1rem] text-white rounded-3xl hover:bg-[#4f52db]"
         >
-           Add New Post +
+          Add New Post +
         </button>
       </div>
 
-      <div className="posts w-[56.5vw] mt-[2rem] pt-[8vh]">
+      <div className={`posts w-[95vw] md:w-[56.5vw] mt-[2rem] pt-[8vh]`}>
         {posts.map((post) => (
-          <Post postData={post} />
+          <Post key={post._id} postData={post} />
         ))}
       </div>
 

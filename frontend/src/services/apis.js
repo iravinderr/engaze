@@ -18,7 +18,7 @@ export const fetchUserDetailsAPI = `${base_url}/user/fetch-user-details`;
 export const followUserAPI = `${base_url}/user/follow`;
 export const unfollowUserAPI = `${base_url}/user/unfollow`;
 export const checkIfFollowedAPI = `${base_url}/user/check-if-followed`;
-
+export const checkIfLikedAPI = `${base_url}/user/check-if-liked`;
 
 // POST APIs
 export const createPostAPI = `${base_url}/post/create`;

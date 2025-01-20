@@ -8,9 +8,9 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { getRequestAxios, postRequestAxios } from "../services/requests";
 import { logoutAPI, searchUserAPI } from "../services/apis";
 import toast from "react-hot-toast";
-import "../styles/SideBar.css";
 import Loader from "./Loader";
 import being_social from "../../public/being_social.png";
+import { TbLogout } from "react-icons/tb";
 
 const SideBar = () => {
   const { loading, setLoading, setAuthenticated } = useAuthNavigation();
@@ -101,7 +101,7 @@ const SideBar = () => {
   }
 
   return (
-    <div className="cover flex flex-col pl-[1rem] sidebar-fixed">
+    <div className="cover hidden md:flex flex-col pl-[1rem] sidebar-fixed">
       <div className="py-[2vw] flex items-center gap-4">
         <img src={being_social} className="w-[3vw] " />
         <div className="text-2xl text-white  font-medium">{APP_NAME}</div>
@@ -143,16 +143,16 @@ const SideBar = () => {
 
       <ul className="flex flex-col mt-[3rem] gap-4">
         {navItems.map((item) => (
-          <li key={item.name}>
+          <li key={item.name} >
             <NavLink
               className={({ isActive }) =>
-                `flex gap-2 text-white items-center text-xl pl-[0.7rem] pb-[1.4rem] ${
+                `flex gap-2 text-white text-xl pl-[0.7rem] mr-[1.2rem] pb-[1.4rem] ${
                   isActive ? `bg-[#6366f1]` : ``
                 } hover:bg-[#6366f1] rounded-md`
               }
               to={item.path}
             >
-              {item.icon} {item.name}
+              <div className="pt-[1rem]">{item.icon}</div> <div className="pt-[0.7rem]">{item.name}</div>
             </NavLink>
           </li>
         ))}
@@ -161,7 +161,7 @@ const SideBar = () => {
           onClick={handleLogout}
           className="flex rounded-lg hover:bg-[#6366f1] text-white items-center text-xl pl-[0.7rem] pb-[1.4rem]"
         >
-          <IoSettingsOutline className="text-gray-300 cursor-pointer" />
+          <TbLogout className="text-gray-300 cursor-pointer" />
           <p className="pl-[0.5rem] cursor-pointer">Logout</p>
         </li>
       </ul>

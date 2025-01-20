@@ -6,6 +6,7 @@ import Friends from "./Friends";
 import Settings from "./Settings";
 import Profile from "./Profile";
 import UserProfile from "./UserProfile";
+import Find from "./Find";
 
 export {
     Feed,
@@ -15,5 +16,7 @@ export {
     Profile,
     Settings,
     Signup,
-    UserProfile
+    UserProfile,
+    Find
+    
 };

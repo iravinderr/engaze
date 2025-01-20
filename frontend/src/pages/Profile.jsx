@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from "react";
-import "../styles/userProfile.css";
 import { Post } from "../components";
-import { deleteRequestAxios, getRequestAxios, postRequestAxios } from "../services/requests";
-import { checkIfFollowedAPI, fetchUserDetailsAPI, fetchUserPostsAPI, followUserAPI, getOwnPostsAPI, getProfileDetailsAPI, unfollowUserAPI } from "../services/apis";
+import {  getRequestAxios} from "../services/requests";
+import {  getOwnPostsAPI, getProfileDetailsAPI} from "../services/apis";
 import { useParams } from "react-router-dom";
-import toast from "react-hot-toast";
 
 const Profile = () => {
     const { username } = useParams(); // Fetch username from URL
     const [userData, setUserData] = useState(null);
     const [userPosts, setUserPosts] = useState([]);
-    const [ifFollowed,setIfFollowed] = useState(false)
 
     useEffect(() => {
         (async () => {
@@ -36,22 +33,24 @@ const Profile = () => {
   return (
     <div className="user-profile-container flex flex-col items-center">
       
-      <div className="user-details-container flex justify-between items-center w-[80vw] p-[2rem] shadow-md rounded-lg mb-[2rem]">
+      <div className="user-details-container flex-col md:flex-row justify-between items-center w-[80vw] p-[2rem] shadow-md rounded-lg mb-[2rem]">
         
-        <div className="user-info flex flex-col gap-2">
-          <h1 className="text-2xl font-bold">{userData?.name}</h1>
-          <p className="text-gray-500">@{userData?.username}</p>
-          
-        </div>
-
-        
-        <div className="profile-image-container">
+      <div className="profile-image-container">
           <img
             src={userData?.profileImage}
             alt="Profile"
             className="user-profile-image rounded-full border-2 border-gray-300"
           />
         </div>
+
+        <div className="user-info flex flex-col gap-2 pt-[2rem] md:pt-0 items-center md:items-start">
+          <h1 className="text-2xl font-bold">{userData?.name}</h1>
+          <p className="text-gray-500">@{userData?.username}</p>
+          
+        </div>
+
+        
+        
       </div>
 
     
