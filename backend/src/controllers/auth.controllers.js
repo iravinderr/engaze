@@ -1,20 +1,19 @@
-import { MAIL_DOMAIN_LIST } from "../constants.js";
 import { USER } from "../models/user.models.js";
 import { asyncHandler } from "../utils/handler.utils.js";
 import { ErrorResponse, SuccessResponse } from "../utils/response.utils.js";
+import { validateCredentials } from "../utils/zod.utils.js";
 
 export const signup = asyncHandler(async (req, res) => {
     const { name, username, email, password } = req.body;
-    
+
     if (!name || !username || !email || !password) return ErrorResponse(res, 400, `Fill all the details`);
 
-    if (!email.includes("@")) return ErrorResponse(res, 400, `Invalid email address`);
+    const { zodValidated, zodError } = validateCredentials({ name, username, email, password });
     
-    const domain = email.split("@")[1];
-    if (!MAIL_DOMAIN_LIST.includes(domain)) return ErrorResponse(res, 400, `Invalid mail domain`);
+    if (!zodValidated) return ErrorResponse(res, 400, `${zodError.errors[0].message}`);
 
     let user = await USER.findOne({ email });
-    if (user) return ErrorResponse(res, 400, `Email already exists`);
+    if (user) return ErrorResponse(res, 400, `User already exists`);
 
 
     user = await USER.findOne({ username });

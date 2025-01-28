@@ -18,7 +18,7 @@ const Signup = () => {
 
   const navigate = useNavigate();
 
-  const [Loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
   const handleInputChange = (e) => {
@@ -47,11 +47,11 @@ const Signup = () => {
       }
     } catch (error) {
       setLoading(false);
-      toast.error(error.response.data.message);
+      toast.error(error.response?.data?.message || "An error occurred");
     }
   };
 
-  if (Loading) {
+  if (loading) {
     return <Loader />;
   }
 
@@ -70,7 +70,7 @@ const Signup = () => {
               <input
                 type="text"
                 name="name"
-                value={inputData.identifier}
+                value={inputData.name}
                 onChange={handleInputChange}
                 placeholder="Full Name"
                 className="text-sm bg-[#fafafa] pl-[0.8rem] w-[17rem] focus:outline-none focus:border-gray-400"
@@ -80,7 +80,7 @@ const Signup = () => {
               <input
                 type="text"
                 name="username"
-                value={inputData.identifier}
+                value={inputData.username}
                 onChange={handleInputChange}
                 placeholder="Username"
                 className="text-sm bg-[#fafafa] pl-[0.8rem] w-[17rem] focus:outline-none focus:border-gray-400"
@@ -88,9 +88,9 @@ const Signup = () => {
             </div>
             <div className="flex bg-[#fafafa] justify-center-center border-2 h-[2.8rem] w-[17rem] mb-[0.3rem] border-gray-300 focus-within:border-gray-400">
               <input
-                type="text"
+                type="email"
                 name="email"
-                value={inputData.identifier}
+                value={inputData.email}
                 onChange={handleInputChange}
                 placeholder="Email"
                 className="text-sm bg-[#fafafa] pl-[0.8rem] w-[17rem] focus:outline-none focus:border-gray-400"
@@ -103,7 +103,7 @@ const Signup = () => {
                 value={inputData.password}
                 onChange={handleInputChange}
                 placeholder="Password"
-                className="text-sm pl-[0.8rem] bg-[#fafafa] w-[14.3rem] focus:outline-none pr-[0.2xvrem]"
+                className="text-sm pl-[0.8rem] bg-[#fafafa] w-[14.3rem] focus:outline-none pr-[0.2rem]"
               ></input>
 
               {inputData.password && (
