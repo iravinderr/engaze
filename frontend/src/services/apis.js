@@ -15,6 +15,7 @@ export const updateProfileDetailsAPI = `${base_url}/user/update-profile-details`
 export const changeUsernameAPI = `${base_url}/user/change-username`;
 export const searchUserAPI = `${base_url}/user/search`;
 export const fetchUserDetailsAPI = `${base_url}/user/fetch-user-details`;
+export const fetchRandomUserDetailsAPI = `${base_url}/user/fetch-random-user-details`
 export const followUserAPI = `${base_url}/user/follow`;
 export const unfollowUserAPI = `${base_url}/user/unfollow`;
 export const checkIfFollowedAPI = `${base_url}/user/check-if-followed`;
