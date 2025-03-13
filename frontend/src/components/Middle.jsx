@@ -60,10 +60,11 @@ const Middle = () => {
       try {
         const response = await getRequestAxios(`${getPostsForHomeAPI}`, null);
         console.log(response.data);
-        setPosts(response.data.data);
+        setPosts(response.data.data );
         setLoading(false);
       } catch (error) {
         console.log(error);
+        setLoading(false)
       }
     })();
   }, []);
@@ -100,9 +101,11 @@ const Middle = () => {
       </div>
 
       <div className={`posts w-[95vw] md:w-[56.5vw] mt-[2rem] pt-[8vh]`}>
-        {posts.map((post) => (
+        {posts.length > 0 ? posts.map((post) => (
           <Post key={post._id} postData={post} />
-        ))}
+        )) : (<div className="w-full h-full flex justify-center items-center text-4xl font-semibold ">
+            Follow Someone to see their posts. Random Feed Adding Soon ...
+           </div>)}
       </div>
 
       {showForm && (
