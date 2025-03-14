@@ -63,15 +63,15 @@ export const fetchUserDetails = asyncHandler(async (req, res) => {
 
 export const fetchRandomUserDetails = asyncHandler(async (req,res) => {
     
-        const users = await USER.aggregate([
-            {$sample : { size : 5}},
-            {$project : {password:0,verified:0,email:0}}
-        ]);
+    const users = await USER.aggregate([
+        {$sample : { size : 5}},
+        {$project : {password:0,verified:0,email:0}}
+    ]);
 
-    
-        if(!users || users.length === 0) return ErrorResponse(res,404,"No Users Found")
 
-            return SuccessResponse(res,'Users Found',users)
+    if(!users || users.length === 0) return ErrorResponse(res,404,"No Users Found")
+
+    return SuccessResponse(res,'Users Found',users)
 
 })
 

@@ -51,7 +51,7 @@ const UserProfile = () => {
                 const followResponse = await deleteRequestAxios(`${unfollowUserAPI}?followeeId=${userData._id}`,)
                 console.log(followResponse.data)
                 if(followResponse.data.success){
-                    toast.success("Account Unfollowed Successfully")
+                    toast.success(followResponse.data.message);
                     setIfFollowed(false)
                 }
             } catch (error) {
@@ -93,7 +93,7 @@ const UserProfile = () => {
           <h1 className="text-2xl font-bold">{userData?.name}</h1>
           <p className="text-gray-500">@{userData?.username}</p>
           {!ownProfile &&
-          (<button onClick={followHandler} className="w-[6rem] h-[2.5rem] border-2 hover:bg-gray-200" >
+          (<button onClick={followHandler} className={`w-[6rem] h-[2.5rem] border-2 ${ ifFollowed ? `bg-gray-200` : `bg-white` } hover:bg-gray-100`} >
               {ifFollowed ? 'Followed' : 'Follow'}
             </button>)
           }
