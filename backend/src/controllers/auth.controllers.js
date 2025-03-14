@@ -21,7 +21,6 @@ export const signup = asyncHandler(async (req, res) => {
 
     await USER.create({ name, username, email, password, verified: true});
     
-
     return SuccessResponse(res, `Account created`);
 });
 

@@ -9,7 +9,7 @@ import { getRequestAxios, postRequestAxios } from "../services/requests";
 import { logoutAPI, searchUserAPI } from "../services/apis";
 import toast from "react-hot-toast";
 import Loader from "./Loader";
-import being_social from "../../public/being_social.png";
+import En from "../../public/En.png"
 import { TbLogout } from "react-icons/tb";
 
 const SideBar = () => {
@@ -103,7 +103,7 @@ const SideBar = () => {
   return (
     <div className="cover hidden md:flex flex-col pl-[1rem] sidebar-fixed">
       <div className="py-[2vw] flex items-center gap-4">
-        <img src={being_social} className="w-[3vw] " />
+        <img src={En} className="w-[3vw] " />
         <div className="text-2xl text-white  font-medium">{APP_NAME}</div>
       </div>
 
