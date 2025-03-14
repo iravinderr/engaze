@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import kitty from "../../public/kitty.jpg"
 
 const FollowPrompt = ({user , index}) => {
     const [ifFollowed , setIfFollowed] = useState(false)

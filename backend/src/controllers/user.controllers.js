@@ -1,6 +1,4 @@
-import { log } from "@tensorflow/tfjs";
 import { FOLLOW } from "../models/follow.models.js";
-import { POST } from "../models/post.models.js";
 import { USER } from "../models/user.models.js";
 import { uploadToCloudinary } from "../utils/cloudinary.utils.js";
 import { asyncHandler } from "../utils/handler.utils.js";
@@ -45,7 +43,7 @@ export const searchUser = asyncHandler(async (req, res) => {
     const { username } = req.query;
 
     if (!username) return ErrorResponse(res, 400, `Enter the username`);
-    const users = await USER.find({ username: { $regex: `^${username}`, $options: "i" }}).select("_id profileImage username name");
+    const users = await USER.find({ username: { $regex: `^${username}`, $options: "i" }}).select("_id profilePicture username name");
 
     if (!users.length) return ErrorResponse(res, 404, `No user exists`);
 

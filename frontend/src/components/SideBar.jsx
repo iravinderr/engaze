@@ -9,7 +9,7 @@ import { getRequestAxios, postRequestAxios } from "../services/requests";
 import { logoutAPI, searchUserAPI } from "../services/apis";
 import toast from "react-hot-toast";
 import Loader from "./Loader";
-import En from "../../public/En.png"
+import engaze from "/engaze.png"
 import { TbLogout } from "react-icons/tb";
 
 const SideBar = () => {
@@ -28,9 +28,7 @@ const SideBar = () => {
 
     setIsSearching(true);
     try {
-      const response = await getRequestAxios(
-        `${searchUserAPI}?username=${query}`
-      );
+      const response = await getRequestAxios(`${searchUserAPI}?username=${query}`);
       if (response.data.success) {
         setSearchResults(response.data.data);
       }
@@ -103,7 +101,7 @@ const SideBar = () => {
   return (
     <div className="cover hidden md:flex flex-col pl-[1rem] sidebar-fixed">
       <div className="py-[2vw] flex items-center gap-4">
-        <img src={En} className="w-[3vw] " />
+        <img src={engaze} className="w-[3vw] " />
         <div className="text-2xl text-white  font-medium">{APP_NAME}</div>
       </div>
 
@@ -130,7 +128,7 @@ const SideBar = () => {
                 onClick={() => handleUserClick(user.username)}
               >
                 <img
-                  src={user.profilePicture ?? "/default-avatar.png"}
+                  src={user?.profilePicture}
                   alt={user.name}
                   className="w-8 h-8 rounded-full"
                 />

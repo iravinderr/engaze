@@ -6,6 +6,7 @@ const userSchema = new Schema(
     {
         profilePicture: {
             type: String,
+            default: "https://res.cloudinary.com/dtmdsmqfe/image/upload/v1741961604/Engaze/1741961599986_defaul_pfp_jqpuqs.jpg"
         },
         name: {
             type: String,

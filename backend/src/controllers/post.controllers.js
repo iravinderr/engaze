@@ -75,7 +75,7 @@ export const getOwnPosts = asyncHandler(async (req, res) => {
 
     const posts = await POST.find({ author: userId })
         .sort({ createdAt: -1 })
-        .populate("author", "profileImage name username")
+        .populate("author", "profilePicture name username")
         .exec();
 
     if (!posts) return ErrorResponse(res, 404, `You haven't posted anything yet`);
@@ -95,7 +95,7 @@ export const getPostsForHome = asyncHandler(async (req, res) => {
 
     const posts = await POST.find({ author: { $in: followeeIds }})
         .sort({ createdAt: -1 })
-        .populate("author", "profileImage name username")
+        .populate("author", "profilePicture name username")
         .exec();
         // .skip((scrollCount-1) * postLimit)
         // .limit(parseInt(postLimit))
@@ -126,7 +126,7 @@ export const fetchUserPosts = asyncHandler(async (req, res) => {
 
     const userPosts = await POST.find({ author: user._id })
         .sort({ createdAt: -1 })
-        .populate("author", "profileImage name username");
+        .populate("author", "profilePicture name username");
     
     if (!userPosts) return ErrorResponse(res, 404, `No posts found`);
 
