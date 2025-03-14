@@ -63,7 +63,7 @@ const LoginPage = () => {
       </div>
       <div className="flex flex-col">
         <div className="h-[46vh] w-[360px] border-2 border-gray-300 flex flex-col items-center mt-[1.2rem]">
-          <div className="text-4xl font-semibold italic py-[2.5rem]">
+          <div className="text-4xl font-semibold py-[2.5rem]">
             {APP_NAME}
           </div>
           <form onSubmit={handleSubmit}>
