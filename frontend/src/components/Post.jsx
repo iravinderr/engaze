@@ -62,7 +62,7 @@ const Post = ({ postData }) => {
   }, []);
 
   return (
-    <div className=" rounded-2xl shadow-lg border-2 border-gray-200 mb-[1rem]">
+    <div className=" rounded-2xl shadow-lg border-2 border-gray-200 mb-[1rem] w-[40vw]">
       <div className="User-Detail flex py-[0.8rem] pl-[1.5rem]">
         <div
           onClick={() => navigate(`/user/${postData.author.username}`)}
@@ -94,7 +94,7 @@ const Post = ({ postData }) => {
         ) : null}
 
         <p>{postData.captions}</p>
-        <div className="flex">
+        <div className="flex flex-wrap">
           {postData.tags &&
             postData.tags.map((tag, index) => (
               <p className="px-[0.1rem] text-blue-500" key={index}>

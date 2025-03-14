@@ -42,7 +42,7 @@ const Activity = () => {
           <img
             src={userData?.profilePicture}
             alt="User Image"
-            className="w-[3rem] rounded-full"
+            className="w-[3.5rem] h-[3.5rem] rounded-full"
           ></img>
           <div className="flex flex-col pl-[1rem]">
             <p className="text-gray-800">@{userData?.username}</p>
