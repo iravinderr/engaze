@@ -10,10 +10,11 @@ const Middle = () => {
   const [loading, setLoading] = useState(false);
   const [posts, setPosts] = useState([]);
   const [formData, setFormData] = useState({
-    tags: "",
+    tags: [],
     captions: "",
     file: null,
   });
+  const [tagInput, setTagInput] = useState("");
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -22,6 +23,23 @@ const Middle = () => {
 
   const handleImageUpload = (e) => {
     setFormData({ ...formData, file: e.target.files[0] });
+  };
+
+  const handleTagInput = (e) => {
+    if (e.key === "Enter" && tagInput.trim()) {
+      e.preventDefault();
+      if (!formData.tags.includes(tagInput.trim())) {
+        setFormData({ ...formData, tags: [...formData.tags, tagInput.trim()] });
+      }
+      setTagInput("");
+    }
+  };
+
+  const removeTag = (tag) => {
+    setFormData({
+      ...formData,
+      tags: formData.tags.filter((t) => t !== tag),
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -48,9 +66,9 @@ const Middle = () => {
     }
 
     setFormData({
-      tags: "",
+      tags: [],
       captions: "",
-      file: [],
+      file: null,
     });
   };
 
@@ -59,12 +77,11 @@ const Middle = () => {
       setLoading(true);
       try {
         const response = await getRequestAxios(`${getPostsForHomeAPI}`, null);
-        console.log(response.data);
-        setPosts(response.data.data );
+        setPosts(response.data.data);
         setLoading(false);
       } catch (error) {
         console.log(error);
-        setLoading(false)
+        setLoading(false);
       }
     })();
   }, []);
@@ -72,14 +89,6 @@ const Middle = () => {
   if (loading) {
     return (
       <div className="md:w-[57vw]">
-        <div
-          role="status"
-          className="space-y-8 animate-pulse md:space-y-0 md:space-x-8 rtl:space-x-reverse md:flex md:items-center"
-        >
-          <div className="w-full">
-            <div className="h-[8vh] bg-gray-200 dark:bg-gray-700 w-full mb-4"></div>
-          </div>
-        </div>
         <SkeletonLoader />
         <SkeletonLoader />
         <SkeletonLoader />
@@ -89,113 +98,66 @@ const Middle = () => {
 
   return (
     <div className="flex flex-col">
-      <div
-        className={`bg-white flex justify-end items-center w-[95vw] md:w-[56.5vw]  h-[4rem] shadow-md fixed`}
-      >
-        <button
-          onClick={() => setShowForm(true)}
-          className=" bg-[#6366f1] w-[10rem] h-[2.5rem] mr-[1rem] text-white rounded-3xl hover:bg-[#4f52db]"
-        >
+      <div className="bg-white flex justify-end items-center w-[95vw] md:w-[56.5vw] h-[4rem] shadow-md fixed">
+        <button onClick={() => setShowForm(true)} className="bg-[#6366f1] w-[10rem] h-[2.5rem] mr-[1rem] text-white rounded-3xl hover:bg-[#4f52db]">
           Add New Post +
         </button>
       </div>
 
-      <div className={`posts w-[95vw] md:w-[56.5vw] mt-[2rem] pt-[8vh]`}>
+      <div className="posts w-[95vw] md:w-[56.5vw] mt-[2rem] pt-[8vh]">
         {posts.length > 0 ? posts.map((post) => (
           <Post key={post._id} postData={post} />
-        )) : (<div className="w-full h-full flex justify-center items-center text-4xl font-semibold ">
+        )) : (
+          <div className="w-full h-full flex justify-center items-center text-4xl font-semibold">
             Follow Someone to see their posts. Random Feed Adding Soon ...
-           </div>)}
+          </div>
+        )}
       </div>
 
       {showForm && (
         <div
           onClick={() => setShowForm(false)}
-          style={{
-            position: "fixed",
-            top: "0",
-            left: "0",
-            width: "100%",
-            height: "100%",
-            backgroundColor: "rgba(0, 0, 0, 0.7)",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            zIndex: "1000",
-          }}
+          className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-70 flex justify-center items-center z-50"
         >
-          <div
-            onClick={(e) => e.stopPropagation()}
-            style={{
-              backgroundColor: "#fff",
-              padding: "20px",
-              borderRadius: "8px",
-              width: "400px",
-              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-            }}
-          >
-            <h2 className="text-2xl pb-[1rem]">Add a New Post</h2>
+          <div onClick={(e) => e.stopPropagation()} className="bg-white p-5 rounded-lg w-96 shadow-lg">
+            <h2 className="text-2xl pb-4">Add a New Post</h2>
             <form onSubmit={handleSubmit}>
-              <div style={{ marginBottom: "10px" }}>
-                <label className="text-lg">captions : </label>
+              <div className="mb-3">
+                <label className="text-lg">Captions: </label>
                 <textarea
                   name="captions"
                   value={formData.captions}
                   onChange={handleInputChange}
                   required
-                  style={{ width: "100%", padding: "8px" }}
+                  className="w-full p-2 border rounded"
                 ></textarea>
               </div>
-              <div style={{ marginBottom: "10px" }}>
-                <label className="text-lg">Tags(comma-seperated) : </label>
-                <input
-                  name="tags"
-                  type="text"
-                  value={formData.tags}
-                  onChange={handleInputChange}
-                  required
-                  style={{ width: "100%", padding: "8px" }}
-                ></input>
+              <div className="mb-3">
+                <label className="text-lg">Tags: </label>
+                <div className="w-full p-2 border rounded flex flex-wrap gap-2">
+                  {formData.tags.map((tag, index) => (
+                    <span key={index} className="bg-gray-200 px-2 py-1 rounded flex items-center">
+                      {tag}
+                      <button type="button" onClick={() => removeTag(tag)} className="ml-2 text-red-500">&times;</button>
+                    </span>
+                  ))}
+                  <input
+                    type="text"
+                    value={tagInput}
+                    onChange={(e) => setTagInput(e.target.value)}
+                    onKeyDown={handleTagInput}
+                    placeholder="Press Enter to add tag"
+                    className="outline-none flex-grow"
+                  />
+                </div>
               </div>
-              <div style={{ marginBottom: "10px" }}>
+              <div className="mb-3">
                 <label>Upload Image: </label>
-                <input
-                  type="file"
-                  multiple
-                  onChange={handleImageUpload}
-                  accept="image/*"
-                />
+                <input type="file" multiple onChange={handleImageUpload} accept="image/*" />
               </div>
-              <button
-                type="submit"
-                style={{
-                  backgroundColor: "#5046e5",
-                  color: "white",
-                  padding: "10px",
-                  border: "none",
-                  cursor: "pointer",
-                  borderRadius: "5px",
-                  width: "100%",
-                }}
-              >
-                Submit
-              </button>
+              <button type="submit" className="bg-blue-600 text-white py-2 px-4 rounded w-full">Submit</button>
             </form>
-            <button
-              onClick={() => setShowForm(false)}
-              style={{
-                marginTop: "10px",
-                backgroundColor: "#f44336",
-                color: "white",
-                padding: "10px",
-                border: "none",
-                cursor: "pointer",
-                borderRadius: "5px",
-                width: "100%",
-              }}
-            >
-              Cancel
-            </button>
+            <button onClick={() => setShowForm(false)} className="mt-3 bg-red-500 text-white py-2 px-4 rounded w-full">Cancel</button>
           </div>
         </div>
       )}

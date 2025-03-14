@@ -16,8 +16,6 @@ export const createPost = asyncHandler(async (req, res) => {
     if (tags.length == 0) return ErrorResponse(res, 400, `Tags are missing`);
     if (!captions) return ErrorResponse(res, 400, `Captions are missing`);
 
-    tags = tags.split(',').map(item => item.trim());
-
     // const filesUrl = [];
     // if (files.length !== 0) {
     //     files.forEach(async (file) => {

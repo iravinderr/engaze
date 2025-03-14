@@ -10,13 +10,16 @@ const postSchema = new Schema(
         captions: {
             type: String,
             required: true,
+            trim: true
         },
         media: {
             type: String,
             // required: true
         },
         tags: [{
-            type: String
+            type: String,
+            lowercase: true,
+            trime: true
         }]
     },
 
