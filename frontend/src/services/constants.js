@@ -1,1 +1,1 @@
-export const APP_NAME = "Flikker";
+export const APP_NAME = "Engaze";
