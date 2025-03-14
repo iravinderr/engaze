@@ -74,10 +74,10 @@ const Middle = () => {
       <div className="md:w-[57vw]">
         <div
           role="status"
-          class="space-y-8 animate-pulse md:space-y-0 md:space-x-8 rtl:space-x-reverse md:flex md:items-center"
+          className="space-y-8 animate-pulse md:space-y-0 md:space-x-8 rtl:space-x-reverse md:flex md:items-center"
         >
-          <div class="w-full">
-            <div class="h-[8vh] bg-gray-200 dark:bg-gray-700 w-full mb-4"></div>
+          <div className="w-full">
+            <div className="h-[8vh] bg-gray-200 dark:bg-gray-700 w-full mb-4"></div>
           </div>
         </div>
         <SkeletonLoader />
