@@ -37,7 +37,7 @@ const Profile = () => {
         
       <div className="profile-image-container">
           <img
-            src={userData?.profileImage}
+            src={userData?.profilePicture}
             alt="Profile"
             className="user-profile-image rounded-full border-2 border-gray-300"
           />

@@ -130,7 +130,7 @@ const SideBar = () => {
                 onClick={() => handleUserClick(user.username)}
               >
                 <img
-                  src={user.profileImage ?? "/default-avatar.png"}
+                  src={user.profilePicture ?? "/default-avatar.png"}
                   alt={user.name}
                   className="w-8 h-8 rounded-full"
                 />

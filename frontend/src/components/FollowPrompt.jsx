@@ -10,7 +10,7 @@ const FollowPrompt = ({user , index}) => {
     <div key={index} className="flex w-full justify-between py-[0.4rem]">
                   <div className="flex">
                     <img
-                      src={kitty}
+                      src={user?.profilePicture}
                       alt="User Image"
                       className="w-[3rem] h-[3rem] rounded-full"
                     ></img>

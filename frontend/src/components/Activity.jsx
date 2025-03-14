@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import kitty from "../../public/kitty.jpg";
 import { getRequestAxios } from "../services/requests";
 import {
   fetchRandomUserDetailsAPI,
@@ -14,13 +13,13 @@ const Activity = () => {
   useEffect(() => {
     (async () => {
       try {
-        const userResponse = await getRequestAxios(getProfileDetailsAPI);
-        if (userResponse.data.success) {
-          console.log(userResponse.data);
-          setUserData(userResponse.data.data);
+        const response = await getRequestAxios(getProfileDetailsAPI);
+        console.log("response -> ", response);
+        if (response.data.success) {
+          setUserData(response.data.data);
         }
       } catch (error) {
-        console.error("Error Fetching User Data ", error);
+        // console.error("Error Fetching User Data ", error);
       }
     })();
 
@@ -28,11 +27,10 @@ const Activity = () => {
       try {
         const response = await getRequestAxios(fetchRandomUserDetailsAPI);
         if (response.data.success) {
-          console.log(response.data);
           setSuggestions(response.data.data);
         }
       } catch (error) {
-        console.error("Error Fetching Random Suggestions :", error);
+        // console.error("Error Fetching Random Suggestions :", error);
       }
     })();
   }, []);
@@ -42,7 +40,7 @@ const Activity = () => {
       <div className="flex flex-col ">
         <div className="flex">
           <img
-            src={kitty}
+            src={userData?.profilePicture}
             alt="User Image"
             className="w-[3rem] rounded-full"
           ></img>
