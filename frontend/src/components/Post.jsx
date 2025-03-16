@@ -77,7 +77,7 @@ const Post = ({ postData }) => {
 
         <div className="flex flex-col ml-[1rem]">
           <p className="font-semibold">{postData.author.name}</p>
-          <p className="text-gray-500">{postData.author.username}</p>
+          <p className="text-gray-500">@{postData.author.username}</p>
         </div>
       </div>
 
