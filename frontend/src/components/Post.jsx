@@ -17,12 +17,12 @@ const Post = ({ postData }) => {
   const likeHandler = async () => {
     if (ifLiked) {
       try {
-        const likeResponse = await deleteRequestAxios(unlikePostAPI, {
+        const response = await deleteRequestAxios(unlikePostAPI, {
           postId: postData._id,
         });
 
-        if (likeResponse.data.success) {
-          toast.success("Post Unliked Successfully");
+        if (response.data.success) {
+          toast.success(response.data.message);
           setTotalLikes(totalLikes - 1);
           setIfLiked(false);
         }
@@ -31,12 +31,12 @@ const Post = ({ postData }) => {
       }
     } else {
       try {
-        const likeResponse = await postRequestAxios(likePostAPI, {
+        const response = await postRequestAxios(likePostAPI, {
           postId: postData._id,
         });
 
-        if (likeResponse.data.success) {
-          toast.success("Post Liked Successfully");
+        if (response.data.success) {
+          toast.success(response.data.message);
           setTotalLikes(totalLikes + 1);
           setIfLiked(true);
         }
