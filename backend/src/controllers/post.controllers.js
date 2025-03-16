@@ -78,7 +78,7 @@ export const commentOnPost = asyncHandler(async (req, res) => {
 });
 
 export const deleteCommentOnPost = asyncHandler(async (req, res) => {
-    
+
 });
 
 export const getOwnPosts = asyncHandler(async (req, res) => {
@@ -113,20 +113,20 @@ export const getPostsForHome = asyncHandler(async (req, res) => {
 
     if (!posts) return ErrorResponse(res, 404, `No more posts to show`);
 
-    return SuccessResponse(res, `Posts fetched`, posts);
+    return SuccessResponse(res, null, posts);
 });
 
 // Function to get recommended posts for the feed
 export const getPostsForFeed = asyncHandler(async (req, res) => {
     const userId = req.user?._id;
 
-    // Fetch recommended posts based on user interactions (likes, follows, etc.)
+    // Fetch recommended post IDs
     const recommendedPostIds = await recommendPosts(userId);
 
-    // Fetch the posts the user is recommended to see
+    // Fetch the posts using recommended post IDs
     const posts = await POST.find({ _id: { $in: recommendedPostIds } }).populate('author');
 
-    return SuccessResponse(res, `Recommended posts for the user`, posts);
+    return SuccessResponse(res, null, posts);
 });
 
 export const fetchUserPosts = asyncHandler(async (req, res) => {
@@ -141,5 +141,5 @@ export const fetchUserPosts = asyncHandler(async (req, res) => {
     
     if (!userPosts) return ErrorResponse(res, 404, `No posts found`);
 
-    return SuccessResponse(res, ``, userPosts);
+    return SuccessResponse(res, null, userPosts);
 });
