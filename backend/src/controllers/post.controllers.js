@@ -1,8 +1,9 @@
-import { recommendPosts } from "../ai/recommendation.ai.js";
+import { COMMENT } from "../models/comment.models.js";
 import { FOLLOW } from "../models/follow.models.js";
 import { LIKE } from "../models/like.models.js";
 import { POST } from "../models/post.models.js";
 import { USER } from "../models/user.models.js";
+import { recommendPosts } from "../recommender/feed.recommender.js";
 import { uploadToCloudinary } from "../utils/cloudinary.utils.js";
 import { asyncHandler } from "../utils/handler.utils.js";
 import { ErrorResponse, SuccessResponse } from "../utils/response.utils.js";
@@ -63,11 +64,21 @@ export const unlikePost = asyncHandler(async (req, res) => {
 });
 
 export const commentOnPost = asyncHandler(async (req, res) => {
+    const userId = req.user?._id;
+    const { postId, comment } = req.body;
     
+    const post = await POST.findById(postId);
+    if (!post) return ErrorResponse(res, 404, `Post does not exist`);
+    
+    if (!comment) return ErrorResponse(res, 400, `Enter some content`);
+
+    const commentMade = await COMMENT.create({ userId, postId, comment });
+
+    return SuccessResponse(res, `Commented`, commentMade);
 });
 
 export const deleteCommentOnPost = asyncHandler(async (req, res) => {
-
+    
 });
 
 export const getOwnPosts = asyncHandler(async (req, res) => {

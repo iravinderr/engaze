@@ -30,7 +30,7 @@ const buildRecommenderModel = (inputSize) => {
 };
 
 // Function to recommend posts based on user interactions
-export const recommendPosts = async (userId) => {
+ const recommendPosts = async (userId) => {
     // Step 1: Get the tags of posts the user has liked
     const likedPosts = await LIKE.find({ userId }).populate('postId');
     const likedTags = likedPosts.map(post => post.postId.tags).flat();
