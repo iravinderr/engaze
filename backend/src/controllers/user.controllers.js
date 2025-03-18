@@ -4,26 +4,35 @@ import { uploadToCloudinary } from "../utils/cloudinary.utils.js";
 import { asyncHandler } from "../utils/handler.utils.js";
 import { ErrorResponse, SuccessResponse } from "../utils/response.utils.js";
 import { LIKE } from "../models/like.models.js";
+import { uploadToIPFS } from "../utils/pinata.utils.js";
 
 export const getProfileDetails = asyncHandler(async (req, res) => {
     const userId = req.user?._id;
 
     const user = await USER.findById(userId);
-    if (!user) return ErrorResponse(res, 404, `User not found`).select("-password");
+    if (!user) return ErrorResponse(res, 404, `User not found`).select("-password -email -verified");
 
     return SuccessResponse(res, ``, user);
 });
 
-export const updateProfileDetails = asyncHandler(async (req, res) => {
+export const changeProfilePicture = asyncHandler(async (req, res) => {
     const userId = req.user?._id;
 
     const file = req.file;
-    let uploadResponse;
-    if (file) uploadResponse = await uploadToCloudinary(file.path);
-    
-    await USER.findByIdAndUpdate(userId, { profilePicture: uploadResponse.secure_url });
 
-    return SuccessResponse(res, `Profile updated`);
+    if (!file) return ErrorResponse(res, 400, `No media file attached`);
+    
+    let uploadUrl = null;
+    // if (file) uploadResponse = await uploadToCloudinary(file.path);
+    // uploadUrl = uploadResponse?.secure_url;
+    
+    uploadUrl = await uploadToIPFS(file.path);
+
+    if (!uploadUrl) return ErrorResponse(res, 500, `Internal Server Error. Profile couldn't be updated.`);
+    
+    const profile = await USER.findByIdAndUpdate(userId, { profilePicture: uploadUrl }, { new: true }).select("-password -email -verified");
+
+    return SuccessResponse(res, `Profile updated`, profile);
 });
 
 export const changeUsername = asyncHandler(async (req, res) => {

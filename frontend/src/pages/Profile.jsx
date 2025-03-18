@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Post } from "../components";
 import { getRequestAxios, putRequestAxios } from "../services/requests";
-import { getOwnPostsAPI, getProfileDetailsAPI, updateProfileDetailsAPI } from "../services/apis";
+import { getOwnPostsAPI, getProfileDetailsAPI, changeProfilePictureAPI } from "../services/apis";
 import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 
@@ -33,7 +33,7 @@ const Profile = () => {
       console.log(image)
       formData.append("file",image);
 
-      const response = await putRequestAxios(updateProfileDetailsAPI,formData,null,null,"multipart/form-data");
+      const response = await putRequestAxios(changeProfilePictureAPI,formData,null,null,"multipart/form-data");
       if(response.data.success){
         toast.success("Profile Updated Successfully");
         setUserData((prev) => ({

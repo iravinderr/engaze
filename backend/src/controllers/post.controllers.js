@@ -6,7 +6,7 @@ import { USER } from "../models/user.models.js";
 import { recommendPosts } from "../recommender/feed.recommender.js";
 import { uploadToCloudinary } from "../utils/cloudinary.utils.js";
 import { asyncHandler } from "../utils/handler.utils.js";
-// import { uploadToIPFS } from "../utils/ipfs.utils.js";
+import { uploadToIPFS } from "../utils/pinata.utils.js";
 import { ErrorResponse, SuccessResponse } from "../utils/response.utils.js";
 
 
@@ -15,6 +15,7 @@ export const createPost = asyncHandler(async (req, res) => {
     const file = req.file;
     let { captions, tags } = req.body;
 
+    if (!file) return ErrorResponse(res, 400, `No media file attached`);
     if (tags.length == 0) return ErrorResponse(res, 400, `Tags are missing`);
     if (!captions) return ErrorResponse(res, 400, `Captions are missing`);
 
@@ -24,14 +25,16 @@ export const createPost = asyncHandler(async (req, res) => {
 
             // let uploadResponse = null;
             let uploadUrl = null;
-            if (file) uploadResponse = await uploadToCloudinary(file.path);
-            uploadUrl = uploadResponse?.secure_url;
+            // if (file) uploadResponse = await uploadToCloudinary(file.path);
+            // uploadUrl = uploadResponse?.secure_url;
             
-            // if (file) uploadUrl = await uploadToIPFS(file.path);
+            if (file) uploadUrl = await uploadToIPFS(file.path);
             
             // filesUrl.push(uploadUrl);
     //     });
     // }
+
+    if (!uploadUrl) return ErrorResponse(res, 500, `Internal Server Error. Post couldn't be created.`);
 
     const post = await POST.create({ author: userId, captions, media: uploadUrl, tags});
 
