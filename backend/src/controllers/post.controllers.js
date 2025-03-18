@@ -3,9 +3,11 @@ import { FOLLOW } from "../models/follow.models.js";
 import { LIKE } from "../models/like.models.js";
 import { POST } from "../models/post.models.js";
 import { USER } from "../models/user.models.js";
-import { recommendPosts } from "../recommender/feed.recommender.js";
+// import { recommendPosts } from "../recommender/feed.recommender.js";
+import { recommendPosts } from "../ai/recommendation.ai.js";
 import { uploadToCloudinary } from "../utils/cloudinary.utils.js";
 import { asyncHandler } from "../utils/handler.utils.js";
+// import { uploadToIPFS } from "../utils/ipfs.utils.js";
 import { ErrorResponse, SuccessResponse } from "../utils/response.utils.js";
 
 
@@ -21,13 +23,18 @@ export const createPost = asyncHandler(async (req, res) => {
     // if (files.length !== 0) {
     //     files.forEach(async (file) => {
 
-            let uploadResponse = null;
+            // let uploadResponse = null;
+            let uploadUrl = null;
             if (file) uploadResponse = await uploadToCloudinary(file.path);
-            // filesUrl.push(uploadResponse.secure_url);
+            uploadUrl = uploadResponse?.secure_url;
+            
+            // if (file) uploadUrl = await uploadToIPFS(file.path);
+            
+            // filesUrl.push(uploadUrl);
     //     });
     // }
 
-    const post = await POST.create({ author: userId, captions, media: uploadResponse?.secure_url, tags});
+    const post = await POST.create({ author: userId, captions, media: uploadUrl, tags});
 
     return SuccessResponse(res, `Post created`, post);
 });
@@ -124,7 +131,7 @@ export const getPostsForFeed = asyncHandler(async (req, res) => {
     const recommendedPostIds = await recommendPosts(userId);
 
     // Fetch the posts using recommended post IDs
-    const posts = await POST.find({ _id: { $in: recommendedPostIds } }).populate('author');
+    const posts = await POST.find({ _id: { $in: recommendedPostIds } }).populate('author', "-email -password -verified -createdAt -updatedAt -__v");
 
     return SuccessResponse(res, null, posts);
 });

@@ -35,6 +35,14 @@ const collaborativeFiltering = async (userId) => {
     return Array.from(recommendedPostIds);
 };
 
+// Jaccard Similarity Calculation
+const jaccardSimilarity = (setA, setB) => {
+    const intersection = setA.filter(word => setB.includes(word)).length;
+    const union = new Set([...setA, ...setB]).size;
+    return union === 0 ? 0 : intersection / union;
+};
+
+
 // Content-Based Filtering: Recommends similar posts based on text (captions, tags)
 const contentBasedFiltering = async (userId) => {
     const { likedPosts } = await getUserInteractions(userId);
@@ -50,7 +58,7 @@ const contentBasedFiltering = async (userId) => {
     const allPosts = await POST.find();
     const postSimilarity = allPosts.map(post => {
         const postTokens = tokenizer.tokenize((post.captions + " " + post.tags.join(" ")).toLowerCase());
-        const similarityScore = natural.JaccardCoefficient(likedTokens, postTokens);
+        const similarityScore = jaccardSimilarity(likedTokens, postTokens);
         return { postId: post._id.toString(), score: similarityScore };
     });
 

@@ -1,4 +1,4 @@
-import * as tf from "@tensorflow/tfjs-node";
+import * as tf from "@tensorflow/tfjs";
 import { POST } from "../models/post.models.js";
 import { LIKE } from "../models/like.models.js";
 import { FOLLOW } from "../models/follow.models.js";

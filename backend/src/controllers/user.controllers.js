@@ -21,7 +21,7 @@ export const updateProfileDetails = asyncHandler(async (req, res) => {
     let uploadResponse;
     if (file) uploadResponse = await uploadToCloudinary(file.path);
     
-    await USER.findByIdAndUpdate(userId, { profilePicture: uploadResponse.secure_url }, {new: true});
+    await USER.findByIdAndUpdate(userId, { profilePicture: uploadResponse.secure_url });
 
     return SuccessResponse(res, `Profile updated`);
 });
