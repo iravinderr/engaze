@@ -4,7 +4,7 @@ import { uploadToCloudinary } from "../utils/cloudinary.utils.js";
 import { asyncHandler } from "../utils/handler.utils.js";
 import { ErrorResponse, SuccessResponse } from "../utils/response.utils.js";
 import { LIKE } from "../models/like.models.js";
-import { uploadToIPFS } from "../utils/pinata.utils.js";
+import { uploadToPinataIPFS } from "../utils/pinata.utils.js";
 
 export const getProfileDetails = asyncHandler(async (req, res) => {
     const userId = req.user?._id;
@@ -26,7 +26,7 @@ export const changeProfilePicture = asyncHandler(async (req, res) => {
     // if (file) uploadResponse = await uploadToCloudinary(file.path);
     // uploadUrl = uploadResponse?.secure_url;
     
-    uploadUrl = await uploadToIPFS(file.path);
+    uploadUrl = await uploadToPinataIPFS(file.path);
 
     if (!uploadUrl) return ErrorResponse(res, 500, `Internal Server Error. Profile couldn't be updated.`);
     

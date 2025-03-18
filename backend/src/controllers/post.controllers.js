@@ -6,7 +6,7 @@ import { USER } from "../models/user.models.js";
 import { recommendPosts } from "../recommender/feed.recommender.js";
 import { uploadToCloudinary } from "../utils/cloudinary.utils.js";
 import { asyncHandler } from "../utils/handler.utils.js";
-import { uploadToIPFS } from "../utils/pinata.utils.js";
+import { uploadToPinataIPFS } from "../utils/pinata.utils.js";
 import { ErrorResponse, SuccessResponse } from "../utils/response.utils.js";
 
 
@@ -28,7 +28,7 @@ export const createPost = asyncHandler(async (req, res) => {
             // if (file) uploadResponse = await uploadToCloudinary(file.path);
             // uploadUrl = uploadResponse?.secure_url;
             
-            if (file) uploadUrl = await uploadToIPFS(file.path);
+            if (file) uploadUrl = await uploadToPinataIPFS(file.path);
             
             // filesUrl.push(uploadUrl);
     //     });
