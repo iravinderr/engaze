@@ -151,9 +151,25 @@ const Middle = () => {
                   />
                 </div>
               </div>
-              <div className="mb-3">
+              <div className="mb-3 flex flex-col relative">
                 <label>Upload Image: </label>
-                <input type="file" multiple onChange={handleImageUpload} accept="image/*" />
+                
+                <label
+                  htmlFor="filePicker"
+                  className="bg-red-400 px-[1.3rem] py-[0.4rem] rounded-lg my-[0.4rem] cursor-pointer hover:text-white transition"
+                >
+                  {formData.file ? formData.file.name : "No File Selected"}
+                </label>
+                <input
+                  id="filePicker"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                  className="hidden"
+                ></input>
+                <p
+                onClick={() => {formData.file ? setFormData({...formData,file:null}) : toast.error("No File Selected")}} 
+                className="z-100 absolute top-[2.34rem] right-[1rem] font-bold cursor-pointer hover:text-white">X</p>
               </div>
               <button type="submit" className="bg-blue-600 text-white py-2 px-4 rounded w-full">Submit</button>
             </form>
