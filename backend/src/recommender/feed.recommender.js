@@ -184,6 +184,6 @@ const recommendPostsTenserflow = async (userId) => {
 
 
 export const recommendPosts = async (userId) => {
-    return await recommendPostsNatual(userId);
-    // return await recommendPostsTenserflow(userId);
+    // return await recommendPostsNatual(userId);
+    return await recommendPostsTenserflow(userId);
 }
