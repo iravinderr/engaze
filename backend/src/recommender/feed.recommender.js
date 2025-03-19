@@ -81,7 +81,7 @@ const recommendPostsNatual = async (userId) => {
 
     // Merge both lists and remove duplicates
     const mergedRecommendations = new Set([...collabRecommendations, ...contentRecommendations]);
-    
+
     return Array.from(mergedRecommendations);
 };
 
@@ -184,6 +184,6 @@ const recommendPostsTenserflow = async (userId) => {
 
 
 export const recommendPosts = async (userId) => {
-    // await recommendPostsNatual(userId);
-    await recommendPostsTenserflow(userId);
+    return await recommendPostsNatual(userId);
+    // return await recommendPostsTenserflow(userId);
 }
