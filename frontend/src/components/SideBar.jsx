@@ -99,7 +99,7 @@ const SideBar = () => {
   }
 
   return (
-    <div className="cover hidden md:flex flex-col pl-[1rem] sidebar-fixed">
+    <div className="cover hidden md:flex flex-col pl-[1rem] sidebar-fixed relative">
       <div className="py-[2vw] flex items-center gap-4">
         <img src={engaze} className="w-[3vw] " />
         <div className="text-2xl text-white  font-medium">{APP_NAME}</div>
@@ -139,7 +139,7 @@ const SideBar = () => {
         )}
       </div>
 
-      <ul className="flex flex-col mt-[3rem] gap-4">
+      <ul className="flex flex-col mt-[3rem] gap-3">
         {navItems.map((item) => (
           <li key={item.name} >
             <NavLink
@@ -150,7 +150,10 @@ const SideBar = () => {
               }
               to={item.path}
             >
+              <div className="flex">
               <div className="pt-[1rem]">{item.icon}</div> <div className="pt-[0.7rem]">{item.name}</div>
+
+              </div>
             </NavLink>
           </li>
         ))}
@@ -159,8 +162,11 @@ const SideBar = () => {
           onClick={handleLogout}
           className="flex rounded-lg hover:bg-[#6366f1] text-white items-center text-xl pl-[0.7rem] pb-[1.4rem]"
         >
+          <div className="flex items-center justify-center mt-[0.8rem]"> 
           <TbLogout className="text-gray-300 cursor-pointer" />
           <p className="pl-[0.5rem] cursor-pointer">Logout</p>
+          </div>
+          
         </li>
       </ul>
     </div>
