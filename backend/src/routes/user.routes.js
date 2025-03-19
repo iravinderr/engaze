@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { verifyToken } from "../middlewares/auth.middlewares.js";
 import {
+    changeProfilePicture,
     changeUsername,
     checkIfFollowed,
     checkIfLiked,
@@ -9,8 +10,7 @@ import {
     followUser,
     getProfileDetails,
     searchUser, 
-    unfollowUser, 
-    updateProfileDetails
+    unfollowUser,
 } from "../controllers/user.controllers.js";
 import { upload } from "../middlewares/multer.middlewares.js";
 
@@ -23,7 +23,7 @@ const router = Router();
 router.get("/get-profile-details", verifyToken, getProfileDetails);
 
 // UPDATE PROFILE DETAILS
-router.put("/update-profile-details", verifyToken, upload.single("file"), updateProfileDetails);
+router.put("/change-profile-picture", verifyToken, upload.single("file"), changeProfilePicture);
 
 // CHANGE USERNAME
 router.put("/change-username", verifyToken, changeUsername);

@@ -1,10 +1,12 @@
-import { recommendPosts } from "../ai/recommendation.ai.js";
+import { COMMENT } from "../models/comment.models.js";
 import { FOLLOW } from "../models/follow.models.js";
 import { LIKE } from "../models/like.models.js";
 import { POST } from "../models/post.models.js";
 import { USER } from "../models/user.models.js";
+import { recommendPosts } from "../recommender/feed.recommender.js";
 import { uploadToCloudinary } from "../utils/cloudinary.utils.js";
 import { asyncHandler } from "../utils/handler.utils.js";
+import { uploadToPinataIPFS } from "../utils/pinata.utils.js";
 import { ErrorResponse, SuccessResponse } from "../utils/response.utils.js";
 
 
@@ -13,6 +15,7 @@ export const createPost = asyncHandler(async (req, res) => {
     const file = req.file;
     let { captions, tags } = req.body;
 
+    if (!file) return ErrorResponse(res, 400, `No media file attached`);
     if (tags.length == 0) return ErrorResponse(res, 400, `Tags are missing`);
     if (!captions) return ErrorResponse(res, 400, `Captions are missing`);
 
@@ -20,13 +23,20 @@ export const createPost = asyncHandler(async (req, res) => {
     // if (files.length !== 0) {
     //     files.forEach(async (file) => {
 
-            let uploadResponse = null;
-            if (file) uploadResponse = await uploadToCloudinary(file.path);
-            // filesUrl.push(uploadResponse.secure_url);
+            // let uploadResponse = null;
+            let uploadUrl = null;
+            // if (file) uploadResponse = await uploadToCloudinary(file.path);
+            // uploadUrl = uploadResponse?.secure_url;
+            
+            if (file) uploadUrl = await uploadToPinataIPFS(file.path);
+            
+            // filesUrl.push(uploadUrl);
     //     });
     // }
 
-    const post = await POST.create({ author: userId, captions, media: uploadResponse?.secure_url, tags});
+    if (!uploadUrl) return ErrorResponse(res, 500, `Internal Server Error. Post couldn't be created.`);
+
+    const post = await POST.create({ author: userId, captions, media: uploadUrl, tags});
 
     return SuccessResponse(res, `Post created`, post);
 });
@@ -63,7 +73,17 @@ export const unlikePost = asyncHandler(async (req, res) => {
 });
 
 export const commentOnPost = asyncHandler(async (req, res) => {
+    const userId = req.user?._id;
+    const { postId, comment } = req.body;
     
+    const post = await POST.findById(postId);
+    if (!post) return ErrorResponse(res, 404, `Post does not exist`);
+    
+    if (!comment) return ErrorResponse(res, 400, `Enter some content`);
+
+    const commentMade = await COMMENT.create({ userId, postId, comment });
+
+    return SuccessResponse(res, `Commented`, commentMade);
 });
 
 export const deleteCommentOnPost = asyncHandler(async (req, res) => {
@@ -102,20 +122,20 @@ export const getPostsForHome = asyncHandler(async (req, res) => {
 
     if (!posts) return ErrorResponse(res, 404, `No more posts to show`);
 
-    return SuccessResponse(res, `Posts fetched`, posts);
+    return SuccessResponse(res, null, posts);
 });
 
 // Function to get recommended posts for the feed
 export const getPostsForFeed = asyncHandler(async (req, res) => {
     const userId = req.user?._id;
 
-    // Fetch recommended posts based on user interactions (likes, follows, etc.)
+    // Fetch recommended post IDs
     const recommendedPostIds = await recommendPosts(userId);
 
-    // Fetch the posts the user is recommended to see
-    const posts = await POST.find({ _id: { $in: recommendedPostIds } }).populate('author');
+    // Fetch the posts using recommended post IDs
+    const posts = await POST.find({ _id: { $in: recommendedPostIds } }).populate('author', "-email -password -verified -createdAt -updatedAt -__v");
 
-    return SuccessResponse(res, `Recommended posts for the user`, posts);
+    return SuccessResponse(res, null, posts);
 });
 
 export const fetchUserPosts = asyncHandler(async (req, res) => {
@@ -130,5 +150,5 @@ export const fetchUserPosts = asyncHandler(async (req, res) => {
     
     if (!userPosts) return ErrorResponse(res, 404, `No posts found`);
 
-    return SuccessResponse(res, ``, userPosts);
+    return SuccessResponse(res, null, userPosts);
 });

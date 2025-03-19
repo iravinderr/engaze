@@ -11,7 +11,7 @@ export const verifyTokenAPI = `${base_url}/auth/verify-token`;
 
 // USER APIs
 export const getProfileDetailsAPI = `${base_url}/user/get-profile-details`;
-export const updateProfileDetailsAPI = `${base_url}/user/update-profile-details`;
+export const changeProfilePictureAPI = `${base_url}/user/change-profile-picture`;
 export const changeUsernameAPI = `${base_url}/user/change-username`;
 export const searchUserAPI = `${base_url}/user/search`;
 export const fetchUserDetailsAPI = `${base_url}/user/fetch-user-details`;
