@@ -20,7 +20,7 @@ export const uploadToPinataIPFS = async (localFilePath) => {
 
     fs.unlinkSync(localFilePath);
 
-    return `${process.env.PINATA_GATEWAY}/ipfs/${uploadResponse.cid}`;
+    return `https://${process.env.PINATA_GATEWAY}/ipfs/${uploadResponse.cid}`;
   } catch (error) {
     console.error("!!! ERROR IN PINATA FILE UPLOAD !!!", error);
     return null;
