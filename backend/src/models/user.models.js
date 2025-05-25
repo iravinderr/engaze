@@ -38,7 +38,12 @@ const userSchema = new Schema(
         DOB: {
             type: Date,
             // required: true
-        }
+        },
+        walletAddress: {
+            type: String,
+            lowercase: true,
+            sparse: true // allow some users to not have a wallet
+        },
     },
 
     { timestamps: true }
