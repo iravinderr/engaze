@@ -11,11 +11,11 @@ const useAuthNavigation = () => {
   useEffect(() => {
     if (!loading) {
       // If the user is authenticated and tries to go to the login or signup page, redirect them to a default page like /home
-      if (authenticated && (location.pathname === "/" || location.pathname === "/signup")) {
+      if (authenticated && (location.pathname === "/" || location.pathname === "/signup" || location.pathname === "/wallet-login")) {
         navigate("/home", { replace: true });  // Or you can redirect to /feed or any other page
       }
       // If the user is not authenticated and tries to access protected pages, redirect them to login
-      else if (!authenticated && location.pathname !== "/" && location.pathname !== "/signup") {
+      else if (!authenticated && location.pathname !== "/" && location.pathname !== "/signup" && location.pathname !== "/wallet-login") {
         navigate("/", { replace: true }); // Redirect to login if not authenticated
       }
     }

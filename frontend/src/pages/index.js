@@ -7,6 +7,7 @@ import Settings from "./Settings";
 import Profile from "./Profile";
 import UserProfile from "./UserProfile";
 import Find from "./Find";
+import WalletLogin from "./WalletLogin";
 
 export {
     Feed,
@@ -17,6 +18,7 @@ export {
     Settings,
     Signup,
     UserProfile,
-    Find
+    Find,
+    WalletLogin
     
 };

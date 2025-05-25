@@ -20,20 +20,17 @@ import '@solana/wallet-adapter-react-ui/styles.css';
 
 const Middle = () => {
 
-  const network = WalletAdapterNetwork.Devnet;
+    const { publicKey , connected } = useWallet();
 
-    const endpoint = useMemo(() => clusterApiUrl(network), [network]);
-
-    const wallets = useMemo(
-        () => [
-            
-             
-            new UnsafeBurnerWalletAdapter(),
-        ],
-        [network]
-    );
-
-    const {publicKey} = useWallet()
+  useEffect(async () => {
+    if (publicKey) {
+      try {
+        
+      } catch (error) {
+        
+      }
+    }
+  },[publicKey,connected]);
 
   const [showForm, setShowForm] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -45,6 +42,8 @@ const Middle = () => {
   });
   const [tagInput, setTagInput] = useState("");
 
+
+  
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -126,13 +125,11 @@ const Middle = () => {
   }
 
   return (
-    <ConnectionProvider endpoint={endpoint}>
-    <WalletProvider wallets={wallets} >
-        <WalletModalProvider>
+    
             
             <div className="flex flex-col items-center ">
               <div className="flex w-[40vw] justify-center absolute top-[4.8rem]">
-                {!publicKey ? <WalletMultiButton /> : <WalletDisconnectButton />}
+                 <WalletMultiButton /> 
               
               </div>
             
@@ -215,9 +212,7 @@ const Middle = () => {
           </div>
         </div>
       )}
-    </div>        </WalletModalProvider>
-    </WalletProvider>
-</ConnectionProvider>
+    </div>       
     
   );
 };

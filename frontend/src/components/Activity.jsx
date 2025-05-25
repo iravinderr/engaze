@@ -14,12 +14,11 @@ const Activity = () => {
     (async () => {
       try {
         const response = await getRequestAxios(getProfileDetailsAPI);
-        console.log("response -> ", response);
         if (response.data.success) {
           setUserData(response.data.data);
         }
       } catch (error) {
-        // console.error("Error Fetching User Data ", error);
+        console.error("Error Fetching User Data ", error);
       }
     })();
 
