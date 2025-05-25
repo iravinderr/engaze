@@ -9,7 +9,7 @@ import { getRequestAxios, postRequestAxios } from "../services/requests";
 import { logoutAPI, searchUserAPI } from "../services/apis";
 import toast from "react-hot-toast";
 import Loader from "./Loader";
-import engaze from "/engaze.png"
+import decent from "/decent.png"
 import { TbLogout } from "react-icons/tb";
 
 const SideBar = () => {
@@ -101,7 +101,7 @@ const SideBar = () => {
   return (
     <div className="cover hidden md:flex flex-col pl-[1rem] sidebar-fixed relative">
       <div className="py-[2vw] flex items-center gap-4">
-        <img src={engaze} className="w-[3vw] " />
+        <img src={decent} className="w-[3vw] " />
         <div className="text-2xl text-white  font-medium">{APP_NAME}</div>
       </div>
 
