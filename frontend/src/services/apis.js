@@ -7,6 +7,7 @@ export const signupAPI = `${base_url}/auth/signup`;
 export const loginAPI = `${base_url}/auth/login`;
 export const logoutAPI = `${base_url}/auth/logout`;
 export const verifyTokenAPI = `${base_url}/auth/verify-token`;
+export const connectWalletAPI = `${base_url}/auth/connect-wallet`;
 export const requestNonceAPI = `${base_url}/auth/request-nonce`;
 export const verifyWalletSignatureAPI = `${base_url}/auth/verify-wallet-signature`;
 
