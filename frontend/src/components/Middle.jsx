@@ -1,11 +1,40 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useMemo } from "react";
 import Post from "./Post";
 import { getRequestAxios, postRequestAxios } from "../services/requests";
 import { createPostAPI, getPostsForHomeAPI } from "../services/apis";
 import { toast } from "react-hot-toast";
 import SkeletonLoader from "./SkeletonLoader";
 
+import { ConnectionProvider, useWallet, WalletProvider } from '@solana/wallet-adapter-react';
+import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
+import { UnsafeBurnerWalletAdapter } from '@solana/wallet-adapter-wallets';
+import {
+    WalletModalProvider,
+    WalletDisconnectButton,
+    WalletMultiButton
+} from '@solana/wallet-adapter-react-ui';
+import { clusterApiUrl } from '@solana/web3.js';
+
+// Default styles that can be overridden by your app
+import '@solana/wallet-adapter-react-ui/styles.css';
+
 const Middle = () => {
+
+  const network = WalletAdapterNetwork.Devnet;
+
+    const endpoint = useMemo(() => clusterApiUrl(network), [network]);
+
+    const wallets = useMemo(
+        () => [
+            
+             
+            new UnsafeBurnerWalletAdapter(),
+        ],
+        [network]
+    );
+
+    const {publicKey} = useWallet()
+
   const [showForm, setShowForm] = useState(false);
   const [loading, setLoading] = useState(false);
   const [posts, setPosts] = useState([]);
@@ -97,14 +126,23 @@ const Middle = () => {
   }
 
   return (
-    <div className="flex flex-col ">
+    <ConnectionProvider endpoint={endpoint}>
+    <WalletProvider wallets={wallets} >
+        <WalletModalProvider>
+            
+            <div className="flex flex-col items-center ">
+              <div className="flex w-[40vw] justify-center absolute top-[4.8rem]">
+                {!publicKey ? <WalletMultiButton /> : <WalletDisconnectButton />}
+              
+              </div>
+            
       <div className="bg-white flex justify-end items-center w-[95vw] md:w-[56.5vw] h-[4rem] shadow-md fixed rounded-xl">
         <button onClick={() => setShowForm(true)} className="bg-[#6366f1] w-[10rem] h-[2.5rem] mr-[1rem] text-white rounded-3xl hover:bg-[#4f52db]">
           Add New Post +
         </button>
       </div>
      
-      <div className="flex flex-col items-center posts w-[95vw] md:w-[56.5vw] mt-[2rem] pt-[8vh]">
+      <div className="flex flex-col items-center posts w-[95vw] md:w-[56.5vw] mt-[2rem] pt-[15vh]">
         {posts.length > 0 ? posts.map((post) => (
           <Post key={post._id} postData={post} />
         )) : (
@@ -177,7 +215,10 @@ const Middle = () => {
           </div>
         </div>
       )}
-    </div>
+    </div>        </WalletModalProvider>
+    </WalletProvider>
+</ConnectionProvider>
+    
   );
 };
 

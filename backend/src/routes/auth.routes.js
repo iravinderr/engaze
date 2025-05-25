@@ -3,7 +3,9 @@ import { upload } from "../middlewares/multer.middlewares.js";
 import {
     login,
     logout,
-    signup
+    requestNonce,
+    signup,
+    verifyWalletSignature
 } from "../controllers/auth.controllers.js";
 import { verifyToken } from "../middlewares/auth.middlewares.js";
 
@@ -24,6 +26,12 @@ router.post("/logout", verifyToken, upload.none(), logout);
 
 // VERIFY TOKEN
 router.post("/verify-token", verifyToken, upload.none(), (req, res) => res.status(200).json({success: true}));
+
+// REQUEST NONCE
+router.post("/request-nonce", upload.none(), requestNonce);
+
+// VERIFY SIGNATURE
+router.post("/verify-wallet-signature", upload.none(), verifyWalletSignature);
 
 
 
