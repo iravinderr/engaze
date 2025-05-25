@@ -28,7 +28,9 @@ router.post("/logout", verifyToken, upload.none(), logout);
 // VERIFY TOKEN
 router.post("/verify-token", verifyToken, upload.none(), (req, res) => res.status(200).json({success: true}));
 
+// CONNECT WALLET
 router.post("/connect-wallet", verifyToken, upload.none(), connectWallet);
+
 // REQUEST NONCE
 router.post("/request-nonce", upload.none(), requestNonce);
 
