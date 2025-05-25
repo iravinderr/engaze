@@ -1,9 +1,12 @@
 import { Router } from "express";
 import { upload } from "../middlewares/multer.middlewares.js";
 import {
+    connectWallet,
     login,
     logout,
-    signup
+    requestNonce,
+    signup,
+    verifyWalletSignature
 } from "../controllers/auth.controllers.js";
 import { verifyToken } from "../middlewares/auth.middlewares.js";
 
@@ -24,6 +27,15 @@ router.post("/logout", verifyToken, upload.none(), logout);
 
 // VERIFY TOKEN
 router.post("/verify-token", verifyToken, upload.none(), (req, res) => res.status(200).json({success: true}));
+
+// CONNECT WALLET
+router.post("/connect-wallet", verifyToken, upload.none(), connectWallet);
+
+// REQUEST NONCE
+router.post("/request-nonce", upload.none(), requestNonce);
+
+// VERIFY SIGNATURE
+router.post("/verify-wallet-signature", upload.none(), verifyWalletSignature);
 
 
 
