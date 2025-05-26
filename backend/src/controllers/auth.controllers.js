@@ -92,7 +92,7 @@ export const connectWallet = asyncHandler(async (req, res) => {
     const { walletAddress } = req.body;
     if (!walletAddress) return errorRes(res, 400, "Wallet address is required");
 
-    const user = await USER.findByIdAndUpdate(useId, { walletAddress });
+    const user = await USER.findByIdAndUpdate(userId, { walletAddress });
 
     return successRes(res, "Wallet Connected");
 });
