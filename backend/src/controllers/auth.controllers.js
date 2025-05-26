@@ -130,7 +130,7 @@ export const verifyWalletSignature = asyncHandler(async (req, res) => {
     if (!valid) return errorRes(res, 401, "Signature verification failed");
 
     let user = await USER.findOne({ walletAddress });
-    if (!user) errorRes(res, 400, "User does not exist");
+    if (!user) return errorRes(res, 400, "User does not exist");
 
     const accessToken = user.generateAccessToken();
 
