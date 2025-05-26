@@ -1,7 +1,7 @@
 import React, { useEffect, useState,useMemo } from "react";
 import Post from "./Post";
 import { getRequestAxios, postRequestAxios } from "../services/requests";
-import { createPostAPI, getPostsForHomeAPI } from "../services/apis";
+import { connectWalletAPI, createPostAPI, getPostsForHomeAPI } from "../services/apis";
 import { toast } from "react-hot-toast";
 import SkeletonLoader from "./SkeletonLoader";
 
@@ -20,20 +20,24 @@ import '@solana/wallet-adapter-react-ui/styles.css';
 
 const Middle = () => {
 
-  const network = WalletAdapterNetwork.Devnet;
+    const { publicKey , connected } = useWallet();
 
-    const endpoint = useMemo(() => clusterApiUrl(network), [network]);
-
-    const wallets = useMemo(
-        () => [
-            
-             
-            new UnsafeBurnerWalletAdapter(),
-        ],
-        [network]
-    );
-
-    const {publicKey} = useWallet()
+  useEffect(() => {
+    if (publicKey) {
+      (async () => {
+        try {
+          const response = await postRequestAxios(connectWalletAPI,{walletAddress : publicKey.toBase58()})
+          if(response.data.success){
+            toast.success("Wallet Registered with us")
+          }
+        } catch (error) {
+          toast.error("Unable to Register Wallet")
+          console.error(error)
+        }
+      })()
+        
+    }
+  },[publicKey,connected]);
 
   const [showForm, setShowForm] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -45,6 +49,8 @@ const Middle = () => {
   });
   const [tagInput, setTagInput] = useState("");
 
+
+  
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -126,18 +132,17 @@ const Middle = () => {
   }
 
   return (
-    <ConnectionProvider endpoint={endpoint}>
-    <WalletProvider wallets={wallets} >
-        <WalletModalProvider>
+    
             
             <div className="flex flex-col items-center ">
-              <div className="flex w-[40vw] justify-center absolute top-[4.8rem]">
-                {!publicKey ? <WalletMultiButton /> : <WalletDisconnectButton />}
-              
-              </div>
+
             
-      <div className="bg-white flex justify-end items-center w-[95vw] md:w-[56.5vw] h-[4rem] shadow-md fixed rounded-xl">
-        <button onClick={() => setShowForm(true)} className="bg-[#6366f1] w-[10rem] h-[2.5rem] mr-[1rem] text-white rounded-3xl hover:bg-[#4f52db]">
+      <div className="bg-white flex justify-between items-center w-[95vw] md:w-[56.5vw] h-[4rem] shadow-md fixed rounded-xl">
+        <div className="ml-[1rem]">
+        <WalletMultiButton /> 
+
+        </div >
+        <button onClick={() => setShowForm(true)} className="bg-[#6366f1] w-[10rem] h-[2.5rem] mr-[1rem] text-white rounded-md hover:bg-[#4f52db]">
           Add New Post +
         </button>
       </div>
@@ -215,9 +220,7 @@ const Middle = () => {
           </div>
         </div>
       )}
-    </div>        </WalletModalProvider>
-    </WalletProvider>
-</ConnectionProvider>
+    </div>       
     
   );
 };

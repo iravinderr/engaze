@@ -104,8 +104,20 @@ const LoginPage = () => {
               >
                 Log In
               </button>
+              
             </div>
           </form>
+        </div>
+        
+        <div className="border-2 mt-[1rem] h-[5rem] flex justify-center items-center border-gray-300">
+          <Link to="/wallet-login">
+          <button
+                
+                className="bg-[#5046e5] py-[0.6rem] px-[3.5rem] rounded-2xl text-white font-semibold"
+              >
+                Login with Wallet
+              </button>
+          </Link>
         </div>
 
         <div className="border-2 mt-[1rem] h-[5rem] flex justify-center items-center border-gray-300">
