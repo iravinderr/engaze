@@ -135,13 +135,14 @@ const Middle = () => {
     
             
             <div className="flex flex-col items-center ">
-              <div className="flex w-[40vw] justify-center absolute top-[4.8rem]">
-                 <WalletMultiButton /> 
-              
-              </div>
+
             
-      <div className="bg-white flex justify-end items-center w-[95vw] md:w-[56.5vw] h-[4rem] shadow-md fixed rounded-xl">
-        <button onClick={() => setShowForm(true)} className="bg-[#6366f1] w-[10rem] h-[2.5rem] mr-[1rem] text-white rounded-3xl hover:bg-[#4f52db]">
+      <div className="bg-white flex justify-between items-center w-[95vw] md:w-[56.5vw] h-[4rem] shadow-md fixed rounded-xl">
+        <div className="ml-[1rem]">
+        <WalletMultiButton /> 
+
+        </div >
+        <button onClick={() => setShowForm(true)} className="bg-[#6366f1] w-[10rem] h-[2.5rem] mr-[1rem] text-white rounded-md hover:bg-[#4f52db]">
           Add New Post +
         </button>
       </div>
