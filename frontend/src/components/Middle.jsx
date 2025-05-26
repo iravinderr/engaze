@@ -1,7 +1,7 @@
 import React, { useEffect, useState,useMemo } from "react";
 import Post from "./Post";
 import { getRequestAxios, postRequestAxios } from "../services/requests";
-import { createPostAPI, getPostsForHomeAPI } from "../services/apis";
+import { connectWalletAPI, createPostAPI, getPostsForHomeAPI } from "../services/apis";
 import { toast } from "react-hot-toast";
 import SkeletonLoader from "./SkeletonLoader";
 
@@ -22,13 +22,20 @@ const Middle = () => {
 
     const { publicKey , connected } = useWallet();
 
-  useEffect(async () => {
+  useEffect(() => {
     if (publicKey) {
-      try {
+      (async () => {
+        try {
+          const response = await postRequestAxios(connectWalletAPI,{walletAddress : publicKey.toBase58()})
+          if(response.data.success){
+            toast.success("Wallet Registered with us")
+          }
+        } catch (error) {
+          toast.error("Unable to Register Wallet")
+          console.error(error)
+        }
+      })()
         
-      } catch (error) {
-        
-      }
     }
   },[publicKey,connected]);
 

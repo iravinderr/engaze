@@ -8,6 +8,8 @@ import SideBar from "./SideBar";
 import Signup from "./Signup";
 import BottomNav from "./BottomNav";
 import SkeletonLoader from "./SkeletonLoader";
+import WalletLoginLayout from "./WalletLoginLayout";
+import WalletLoginForm from "./WalletLoginForm";
 
 export {
     Activity,
@@ -19,5 +21,7 @@ export {
     Signup,
     PrivateRoute,
     BottomNav,
-    SkeletonLoader
+    SkeletonLoader,
+    WalletLoginLayout,
+    WalletLoginForm
 };

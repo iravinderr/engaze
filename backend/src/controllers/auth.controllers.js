@@ -5,7 +5,7 @@ import { validateCredentials } from "../utils/zod.utils.js";
 import nacl from "tweetnacl";
 import bs58 from "bs58";
 import crypto from "crypto";
-import { useId } from "react";
+
 
 export const signup = asyncHandler(async (req, res) => {
     const { name, username, email, password } = req.body;
@@ -92,7 +92,7 @@ export const connectWallet = asyncHandler(async (req, res) => {
     const { walletAddress } = req.body;
     if (!walletAddress) return errorRes(res, 400, "Wallet address is required");
 
-    const user = await USER.findByIdAndUpdate(useId, { walletAddress });
+    const user = await USER.findByIdAndUpdate(userId, { walletAddress });
 
     return successRes(res, "Wallet Connected");
 });
